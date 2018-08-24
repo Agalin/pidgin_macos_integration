@@ -48,7 +48,7 @@ func forEachInList(_ list: UnsafeMutablePointer<GList>?, function: (UnsafeMutabl
     var element = list
     while(element != nil) {
         function(element!)
-        element = element?.pointee.next
+        element = element!.pointee.next
     }
 }
 
@@ -215,11 +215,14 @@ func forEachInList(_ list: UnsafeMutablePointer<GList>?, function: (UnsafeMutabl
     func handleReceivedMessage(account: UnsafeMutablePointer<PurpleAccount>?, sender: UnsafeMutablePointer<CString>?, message: UnsafeMutablePointer<CString>?, conv: UnsafeMutablePointer<PurpleConversation>?, flags: UnsafeMutablePointer<PurpleMessageFlags>?) -> gboolean {
         
         let buddy = purple_find_buddy(account, sender!.pointee);
-        let senderName = buddy != nil ? (buddy!.pointee.alias != nil) ? String(cString: buddy!.pointee.alias!) : String(cString: buddy!.pointee.name!) : "Unknown sender"
-    
+        let senderName = buddy != nil ? (buddy!.pointee.alias != nil) ? String(cString: buddy!.pointee.alias!) : String(cString: buddy!.pointee.name!) : String(cString: sender!.pointee!)
+        let protocolName = String(cString: purple_account_get_protocol_name(account))
+        
         let notification = NSUserNotification()
         notification.title = senderName // TODO: Add conversation name / conversation type for chat
-        notification.subtitle = "Test" // TODO: Add protocol name
+//        notification.subtitle = "Test" // TODO: Add protocol name
+        notification.subtitle = protocolName
+        
 //        notification.soundName = NSUserNotificationDefaultSoundName
         notification.informativeText = String.fromC(message!.pointee)
  
