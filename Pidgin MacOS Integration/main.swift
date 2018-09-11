@@ -296,23 +296,27 @@ func forEachInList(_ list: UnsafeMutablePointer<GList>?, function: (UnsafeMutabl
     }
     
     func handleReceivedMessage(account: UnsafeMutablePointer<PurpleAccount>?, sender: UnsafeMutablePointer<CString>?, message: UnsafeMutablePointer<CString>?, conv: UnsafeMutablePointer<PurpleConversation>?, flags: UnsafeMutablePointer<PurpleMessageFlags>?) -> gboolean {
+        if(!(flags?.pointee.shouldNotify() ?? false)){ return 0 }
         
         let buddy = purple_find_buddy(account, sender!.pointee);
         let senderName = buddy != nil ? (buddy!.pointee.alias != nil) ? String(cString: buddy!.pointee.alias!) : String(cString: buddy!.pointee.name!) : String(cString: sender!.pointee!)
         let protocolName = String(cString: purple_account_get_protocol_name(account))
-        
+        let withImages = flags!.pointee.containsImages
+        log_all("macos", "Message contains images: \(withImages)")
+        log_all("macos", "Conversation name: \(String(describing: conv?.pointee.name)), title: \(String(describing: conv?.pointee.title))")
+        let isChat = conv?.pointee.type == PURPLE_CONV_TYPE_CHAT
         let notification = NSUserNotification()
-        notification.title = senderName // TODO: Add conversation name / conversation type for chat
-//        notification.subtitle = "Test" // TODO: Add protocol name
-        notification.subtitle = protocolName
+        notification.title = senderName
+        let chatName = String.fromC(conv?.pointee.title ?? conv?.pointee.name)
+        notification.subtitle = isChat ? "\(chatName.isEmpty ? "Group Chat" : chatName) - \(protocolName)" : protocolName
         
-//        notification.soundName = NSUserNotificationDefaultSoundName
+        //        notification.soundName = NSUserNotificationDefaultSoundName
         notification.informativeText = String.fromC(message!.pointee)
- 
+        
         if let image = getIcon(for: buddy) {
             notification.contentImage = NSImage(byReferencingFile: image)
         }
-//        NSUserNotificationCenter.default.delegate = self as NSUserNotificationCenterDelegate
+        //        NSUserNotificationCenter.default.delegate = self as NSUserNotificationCenterDelegate
         NSUserNotificationCenter.default.deliver(notification)
         gtkosx_application_attention_request(gtkosx_application_get(), INFO_REQUEST)
         return 0
@@ -329,17 +333,16 @@ func forEachInList(_ list: UnsafeMutablePointer<GList>?, function: (UnsafeMutabl
         return nil
     }
     
-//    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
-//        return true
-//    }
+    //    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
+    //        return true
+    //    }
     
     func userNotificationCenter(_: NSUserNotificationCenter, didDeliver: NSUserNotification) {
         
     }
-
+    
     func userNotificationCenter(_: NSUserNotificationCenter, didActivate: NSUserNotification) {
         
     }
     
-
 }
