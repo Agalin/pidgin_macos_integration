@@ -70,12 +70,12 @@ void log_callback(const char* category, const char* message, const char* callbac
 
 void log_all(const char* category, const char* message)
 {
-    purple_debug_info(category, "%s", message);
+    purple_debug_info(category, "%s\n", message);
 }
 
 void log_critical(const char* category, const char* message)
 {
-    purple_debug(PURPLE_DEBUG_FATAL, category, "%s", message);
+    purple_debug(PURPLE_DEBUG_FATAL, category, "%s\n", message);
 }
 
 void set_menu(GtkWidget *menu){
