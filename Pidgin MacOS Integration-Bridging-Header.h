@@ -13,6 +13,7 @@
 #import <pidgin/gtknotify.h>
 #import <pidgin/gtkconv.h>
 #import <pidgin/gtkdialogs.h>
+#import <pidgin/gtkimhtml.h>
 
 // Purple
 #import <notify.h>

@@ -30,4 +30,10 @@ void plugin_unload_oc(PurplePlugin *plugin);
 void plugin_init_oc(PurplePlugin *plugin);
 
 void (*conv_test(void))(void);
+
+
+struct im_image_data {
+    int id;
+    GtkTextMark *mark;
+};
 #endif /* plugin_load_h */

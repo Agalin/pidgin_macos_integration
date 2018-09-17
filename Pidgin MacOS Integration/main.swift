@@ -13,7 +13,90 @@ typealias CString = UnsafeMutablePointer<CChar>?
 
 extension String {
     static func fromC(_ cString: CString) -> String {
-        return String(cString: UnsafePointer<CChar>(cString!))
+        if let str = cString {
+            return String(cString: UnsafePointer<CChar>(str))
+        }
+        else { // TODO: Should return optional or throw
+            log_all("macos", "Empty string received.")
+            return ""
+        }
+    }
+}
+
+extension PidginConversation {
+    var latestImagePath : String? {
+        debug("Latest image path.")
+        var result : String?
+        if let entry = self.entry {
+            result = entry.withMemoryRebound(to: GtkIMHtml.self, capacity: 1) {
+                (html : UnsafeMutablePointer<GtkIMHtml>) -> String? in
+                if let images = html.pointee.im_images {
+                    let imageStruct = images.pointee.data.assumingMemoryBound(to: im_image_data.self)
+                    let image = html.pointee.funcs.pointee.image_get(imageStruct.pointee.id)
+                    if let imagePath = html.pointee.funcs.pointee.image_get_filename(image) {
+                        return String(cString: imagePath)
+                    }
+                }
+                return nil
+            }
+        }
+        debug("Latest image path: \(String(describing: result))")
+        log_all("macos", "Latest image path: \(String(describing: result))\n")
+        return result
+    }
+}
+
+extension PurpleMessageFlags {
+    var containsImages : Bool {
+        return self.rawValue & PURPLE_MESSAGE_IMAGES.rawValue > 0
+    }
+    
+    var sentFromRemote : Bool {
+        return self.rawValue & PURPLE_MESSAGE_REMOTE_SEND.rawValue > 0
+    }
+    
+    var sent : Bool {
+        return self.rawValue & PURPLE_MESSAGE_SEND.rawValue > 0
+    }
+    
+    var received : Bool {
+        return self.rawValue & PURPLE_MESSAGE_RECV.rawValue > 0
+    }
+    var system : Bool {
+        return self.rawValue & PURPLE_MESSAGE_SYSTEM.rawValue > 0
+    }
+    
+    var autoResponse : Bool {
+        return self.rawValue & PURPLE_MESSAGE_AUTO_RESP.rawValue > 0
+    }
+    
+    var activeOnly : Bool {
+        return self.rawValue & PURPLE_MESSAGE_ACTIVE_ONLY.rawValue > 0
+    }
+    
+    var nick : Bool {
+        return self.rawValue & PURPLE_MESSAGE_NICK.rawValue > 0
+    }
+    
+    var noLog : Bool {
+        return self.rawValue & PURPLE_MESSAGE_NO_LOG.rawValue > 0
+    }
+    
+    var whisper : Bool {
+        return self.rawValue & PURPLE_MESSAGE_WHISPER.rawValue > 0
+    }
+    var error : Bool { return self.rawValue & PURPLE_MESSAGE_ERROR.rawValue > 0 }
+    var delayed : Bool { return self.rawValue & PURPLE_MESSAGE_DELAYED.rawValue > 0 }
+    var raw : Bool { return self.rawValue & PURPLE_MESSAGE_RAW.rawValue > 0 }
+    var notify : Bool { return self.rawValue & PURPLE_MESSAGE_NOTIFY.rawValue > 0 } /**< Message is a notification */
+    var noLinkify : Bool { return self.rawValue & PURPLE_MESSAGE_NO_LINKIFY.rawValue > 0 }
+    var invisible : Bool { return self.rawValue & PURPLE_MESSAGE_INVISIBLE.rawValue > 0 } /**< Message should not be displayed */
+    
+    func shouldNotify() -> Bool {
+        debug("shouldNotify")
+        let toDisplay = (received || system) && !invisible && !sent
+        log_all("macos", "Notification should be displayed: \(toDisplay), flags: \(String(self.rawValue, radix: 2))\n")
+        return toDisplay
     }
 }
 
@@ -48,7 +131,7 @@ func forEachInList(_ list: UnsafeMutablePointer<GList>?, function: (UnsafeMutabl
     var element = list
     while(element != nil) {
         function(element!)
-        element = element?.pointee.next
+        element = element!.pointee.next
     }
 }
 
@@ -213,20 +296,27 @@ func forEachInList(_ list: UnsafeMutablePointer<GList>?, function: (UnsafeMutabl
     }
     
     func handleReceivedMessage(account: UnsafeMutablePointer<PurpleAccount>?, sender: UnsafeMutablePointer<CString>?, message: UnsafeMutablePointer<CString>?, conv: UnsafeMutablePointer<PurpleConversation>?, flags: UnsafeMutablePointer<PurpleMessageFlags>?) -> gboolean {
+        if(!(flags?.pointee.shouldNotify() ?? false)){ return 0 }
         
         let buddy = purple_find_buddy(account, sender!.pointee);
-        let senderName = buddy != nil ? (buddy!.pointee.alias != nil) ? String(cString: buddy!.pointee.alias!) : String(cString: buddy!.pointee.name!) : "Unknown sender"
-    
+        let senderName = buddy != nil ? (buddy!.pointee.alias != nil) ? String(cString: buddy!.pointee.alias!) : String(cString: buddy!.pointee.name!) : String(cString: sender!.pointee!)
+        let protocolName = String(cString: purple_account_get_protocol_name(account))
+        let withImages = flags!.pointee.containsImages
+        log_all("macos", "Message contains images: \(withImages)")
+        log_all("macos", "Conversation name: \(String(describing: conv?.pointee.name)), title: \(String(describing: conv?.pointee.title))")
+        let isChat = conv?.pointee.type == PURPLE_CONV_TYPE_CHAT
         let notification = NSUserNotification()
-        notification.title = senderName // TODO: Add conversation name / conversation type for chat
-        notification.subtitle = "Test" // TODO: Add protocol name
-//        notification.soundName = NSUserNotificationDefaultSoundName
+        notification.title = senderName
+        let chatName = String.fromC(conv?.pointee.title ?? conv?.pointee.name)
+        notification.subtitle = isChat ? "\(chatName.isEmpty ? "Group Chat" : chatName) - \(protocolName)" : protocolName
+        
+        //        notification.soundName = NSUserNotificationDefaultSoundName
         notification.informativeText = String.fromC(message!.pointee)
- 
+        
         if let image = getIcon(for: buddy) {
             notification.contentImage = NSImage(byReferencingFile: image)
         }
-//        NSUserNotificationCenter.default.delegate = self as NSUserNotificationCenterDelegate
+        //        NSUserNotificationCenter.default.delegate = self as NSUserNotificationCenterDelegate
         NSUserNotificationCenter.default.deliver(notification)
         gtkosx_application_attention_request(gtkosx_application_get(), INFO_REQUEST)
         return 0
@@ -243,17 +333,16 @@ func forEachInList(_ list: UnsafeMutablePointer<GList>?, function: (UnsafeMutabl
         return nil
     }
     
-//    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
-//        return true
-//    }
+    //    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
+    //        return true
+    //    }
     
     func userNotificationCenter(_: NSUserNotificationCenter, didDeliver: NSUserNotification) {
         
     }
-
+    
     func userNotificationCenter(_: NSUserNotificationCenter, didActivate: NSUserNotification) {
         
     }
     
-
 }
