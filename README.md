@@ -2,6 +2,12 @@
 
 [Pidgin](https://pidgin.im/) is a multiprotocol communicator based on *libPurple* with GUI created using GTK+. There is no official support for macOS as there is an alternative written using native frameworks - [Adium](https://adium.im/). Sadly, Adium seems to be nearly abandoned. It means that there is no native libPurple client for macOS. This plugin tries make Pidgin feel as native as it is possible.
 
+## Basic Integration
+
+I suggest to create app bundle (or use mine: [Pidgin Bundle](https://github.com/Agalin/pidgin_bundle)) for Pidgin as it adds dock icon and hides Terminal window. It's **REQUIRED** for notifications and possible future translations to work properly.
+
+Homebrew has a formula for *gtk-chtheme* which makes theme change easier - and macOS themes for GTK are easy to find.
+
 ## Features
 
 There are currently following features implemented:
@@ -20,14 +26,13 @@ Plugin is written in Swift. As Pidgin is written in C, bridging is needed. That'
 * No clean build procedure. Project is currently hardcoded to Homebrew-installed libraries in specific versions. It should be changed to *pkg-config*.
 * No prebuilt libraries - see previous point.
 * Protocols are missing icons in Conversation **Send To** menu. They need to be added manually.
-* There is no differentiation between personal and group messages in notifications (and all banners display "Test" as one of the arguments).
-* Notifications may not work correctly for group chats (not tested).
-* Notifications are displayed for *receiving-im-msg* and *receiving-chat-msg* instead of *displayed-im-msg* and *displayed-chat-msg* (I had some issues with text pointers for this one callback type) which means that filtered messages can still send notifications.
+* Notifications are displayed for *receiving-im-msg* and *receiving-chat-msg* instead of *displayed-im-msg* and *displayed-chat-msg* (I had some issues with text pointers for this one callback type) which means that filtered messages can still send notifications. **It can lower your privacy!**
 * Currently using **NSUserNotification** api which will be deprecated with the release of Mojave.
 * Help menu does not stay visible all the time (it's still connected to Buddy List window).
-* ⌘-` seems not to work.
-* ⌘-Q seems not to call proper Pidgin termination callbacks and not save some settings.
-* Application starts in background - that's actually issue with every GTK+ based app.
+* It seems that preferences menu option is only available for last opened window.
+* ⌘-\` seems not to work.
+* ⌘-Q seems not to call proper Pidgin termination callbacks. Some settings may be lost when used!
+* ~~Application starts in background - that's actually issue with every GTK+ based app.~~ Fixed with correct `Info.plist` entries.
 * It's possible to add some kind of Touch Bar support.
 
 ## Build/Install
@@ -37,5 +42,3 @@ Homebrew dependencies (those I'm aware of, they should already require other use
 * Pidgin (obviously)
 * GTK+ (surprise!)
 * gtk-mac-integration
-
-I also suggest creating app bundle (will publish one as separate repo or include in build system here in the future) for Pidgin as it adds dock icon and hides Terminal window. Homebrew has a formula for *gtk-chtheme* which makes theme change easier - and macOS themes for GTK are easy to find.
