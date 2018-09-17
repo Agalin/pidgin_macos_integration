@@ -15,6 +15,21 @@ void log_callback(const char* category, const char* message, const char* callbac
 static Plugin* instance;
 static PurplePlugin* pplugin;
 
+GtkWidget* get_config_frame(PurplePlugin* plugin) {
+    return [Plugin getConfigFrame:plugin];
+}
+
+PidginPluginUiInfo ui_info = {
+    get_config_frame,
+    0,
+    
+    /* padding */
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
 void plugin_load_oc(PurplePlugin *plugin) {
     log_critical("macos", "Load\n");
     instance = [[Plugin alloc]init];

@@ -19,6 +19,8 @@
 
 #include "plugin_load.h"
 
+extern PurplePluginUiInfo ui_info;
+
 static gboolean
 plugin_load(PurplePlugin *plugin) {
     plugin_load_oc(plugin);
@@ -53,7 +55,7 @@ static PurplePluginInfo info = {
     plugin_unload,
     NULL, // plugin_destroy
     
-    NULL, // ui-specific struct - PidginPluginUiInfo
+    &ui_info, // ui-specific struct - PidginPluginUiInfo
     NULL, // PurplePluginLoaderInfo or PurplePluginProtocolInfo
     NULL, // PurplePluginUiInfo
     NULL, // plugin actions, GList *function_name(PurplePlugin *plugin, gpointer context)
