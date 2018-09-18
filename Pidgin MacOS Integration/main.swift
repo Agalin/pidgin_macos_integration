@@ -119,8 +119,10 @@ func view_selection_func (selection : UnsafeMutablePointer<GtkTreeSelection>!, m
             if (path_currently_selected == FALSE)
             {
                 log_all("macos", "\(n) is going to be selected.")
-                let file = n.1.isEmpty ? n.0 : "\(n.1)/\(n.0)"
+//                let file = n.1.isEmpty ? n.0 : "\(n.1)/\(n.0)"
+                let file = n.0
                 purple_prefs_set_string(Plugin.Preferences.NotificationSound.path, file)
+                NSSound(named: file)?.play()
             }
             else
             {
@@ -248,6 +250,7 @@ enum GTypes : UInt {
         setBuddyListMenu()
         setConversationMenu()
         log_all("macos", "Sounds: \(Plugin.notificationSounds)")
+        log_all("macos", "Default sound: \(NSUserNotificationDefaultSoundName)")
     }
     
     func initPreferences() {
@@ -527,6 +530,7 @@ enum GTypes : UInt {
             notification.contentImage = NSImage(byReferencingFile: image)
         }
         //        NSUserNotificationCenter.default.delegate = self as NSUserNotificationCenterDelegate
+        log_all("macos", "Notification sound: \(notification.soundName ?? "None")")
         NSUserNotificationCenter.default.deliver(notification)
         gtkosx_application_attention_request(gtkosx_application_get(), INFO_REQUEST)
         return 0
@@ -557,19 +561,19 @@ enum GTypes : UInt {
     
     static func getSystemNotificationSounds() -> [(String, String)] {
         // TODO: Include bundle directory.
-        // TODO: Extract as class level? SHould it be in separate class/file?
-        let defaultSoundsPaths = ["/System/Library/Sounds", "/Library/Sounds", "~/Library/Sounds"]
+        // TODO: Extract as class level? SHould it be in separate class/file? Is there any way to get all files from NSSound?
+        let defaultSoundsPaths = ["/System/Library/Sounds", "/Library/Sounds", ("~/Library/Sounds" as NSString).expandingTildeInPath as String]
         // TODO: Better file format verification.
-        let supportedExtensions = ["aiff", "wav", "caf"]
-        
+        // let supportedExtensions = ["aiff", "wav", "caf"] // Seems to differ from NSSound supported files.
+
         let fileManager = FileManager.default
         var files = [(String, String)]()
         
         for soundsPath in defaultSoundsPaths {
-            let toAdd = try? fileManager.contentsOfDirectory(atPath: soundsPath) as [NSString]
+            let toAdd = try? fileManager.contentsOfDirectory(atPath: soundsPath)
             if let filesToAdd = toAdd {
-                let soundFiles = filesToAdd.filter{return supportedExtensions.contains($0.pathExtension)} as [String]
-                files.append(contentsOf: soundFiles.map{($0, soundsPath)})
+                // Can absolute path even work? If not, should higher level (closer to user's home and bundle) files mask built-in?
+                files.append(contentsOf: filesToAdd.filter{!($0 as NSString).pathExtension.isEmpty }.map{(($0 as NSString).deletingPathExtension, soundsPath)})
                 log_all("macos", "Files retrieved from \(soundsPath): \(filesToAdd.count)")
             }
             else {
