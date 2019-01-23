@@ -331,7 +331,7 @@
 					/usr/local/Cellar/pidgin/2.13.0_2/bin,
 				);
 				MACH_O_TYPE = mh_bundle;
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				OTHER_LDFLAGS = (
 					"-lglib-2.0",
 					"-lpurple",
