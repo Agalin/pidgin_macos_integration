@@ -14,6 +14,8 @@
 #import <pidgin/gtkconv.h>
 #import <pidgin/gtkdialogs.h>
 #import <pidgin/gtkimhtml.h>
+#import <pidgin/gtkplugin.h>
+#import <pidgin/gtkutils.h>
 
 // Purple
 #import <notify.h>

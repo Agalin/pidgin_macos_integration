@@ -10,6 +10,11 @@ import Foundation
 import Cocoa
 
 typealias CString = UnsafeMutablePointer<CChar>?
+typealias GtkTreePath = OpaquePointer
+typealias GtkTreeModel = OpaquePointer
+
+let NULL = 0
+let FALSE : gboolean = 0
 
 extension String {
     static func fromC(_ cString: CString) -> String {
@@ -100,6 +105,37 @@ extension PurpleMessageFlags {
     }
 }
 
+// FIXME: Rename to camelcase.
+func view_selection_func (selection : UnsafeMutablePointer<GtkTreeSelection>!, model : GtkTreeModel!, path : GtkTreePath!, path_currently_selected : gboolean, userdata : gpointer!) -> gboolean {
+    var iter = GtkTreeIter(stamp: 0, user_data: nil, user_data2: nil, user_data3: nil)
+    let result = gtk_tree_model_get_iter(model, &iter, path)
+    if (result == 1)
+    {
+        let index = Int(String(cString: gtk_tree_model_get_string_from_iter(model, &iter)))
+        if let i = index {
+            let n = Plugin.notificationSounds[i]
+            //        gtk_tree_model_get_value(model, &iter, 0, name)
+            //        gtk_tree_model_get(model, &iter, "Sound", name, -1)
+            if (path_currently_selected == FALSE)
+            {
+                log_all("macos", "\(n) is going to be selected.")
+//                let file = n.1.isEmpty ? n.0 : "\(n.1)/\(n.0)"
+                let file = n.0
+                purple_prefs_set_string(Plugin.Preferences.NotificationSound.path, file)
+                NSSound(named: file)?.play()
+            }
+            else
+            {
+                log_all("macos", "\(n) is going to be unselected.")
+            }
+        }
+    }
+    else {
+        log_critical("macos", "Selected nonexistent sound!")
+    }
+    return 1
+}
+
 func toPtr<T : AnyObject>(_ obj : T) -> UnsafeMutableRawPointer {
     return UnsafeMutableRawPointer(Unmanaged.passUnretained(obj).toOpaque())
 }
@@ -115,6 +151,7 @@ func debug(_ message: String) {
     {
         fputs("\n", __stderrp)
     }
+    log_all("macos", message)
     #endif
 }
 
@@ -134,7 +171,31 @@ func forEachInList(_ list: UnsafeMutablePointer<GList>?, function: (UnsafeMutabl
         element = element!.pointee.next
     }
 }
-
+enum GTypes : UInt {
+    case G_TYPE_INVALID = 0b0 // 0 << 2
+    case G_TYPE_NONE = 0b100 // 1 << 2
+    case G_TYPE_INTERFACE = 0b1000 // 2 << 2
+    case G_TYPE_CHAR = 0b1100 // 3 << 2
+    case G_TYPE_UCHAR = 0b10000 // 4 << 2
+    case G_TYPE_BOOLEAN = 0b10100 // 5 << 2
+    case G_TYPE_INT = 0b11000 // 6 << 2
+    case G_TYPE_UINT = 0b11100 // 7 << 2
+    case G_TYPE_LONG = 0b100000 // 8 << 2
+    case G_TYPE_ULONG = 0b100100 // 9 << 2
+    case G_TYPE_INT64 = 0b101000 // 10 << 2
+    case G_TYPE_UINT64 = 0b101100 // 11 << 2
+    case G_TYPE_ENUM = 0b110000 // 12 << 2
+    case G_TYPE_FLAGS = 0b110100 // 13 << 2
+    case G_TYPE_FLOAT = 0b111000 // 14 << 2
+    case G_TYPE_DOUBLE = 0b111100 // 15 << 2
+    case G_TYPE_STRING = 0b1000000 // 16 << 2
+    case G_TYPE_POINTER = 0b1000100 // 17 << 2
+    case G_TYPE_BOXED = 0b1001000 // 18 << 2
+    case G_TYPE_PARAM = 0b1001100 // 19 << 2
+    case G_TYPE_OBJECT = 0b1010000 // 20 << 2
+    case G_TYPE_VARIANT = 0b1010100 // 21 << 2
+}
+    
 @objc class Plugin : NSObject, NSUserNotificationCenterDelegate {
     var instance: UnsafeMutablePointer<PurplePlugin>?
     static let callbacks = ["receiving-im-msg", "receiving-chat-msg", /*"received-im-msg", "received-chat-msg",*/ "displayed-im-msg", "displayed-chat-msg"]
@@ -147,6 +208,21 @@ func forEachInList(_ list: UnsafeMutablePointer<GList>?, function: (UnsafeMutabl
     lazy var preferencesItem = getMenuItem(type: .Preferences)
     lazy var defaultQuitItem = getMenuItem(type: .Quit)
     lazy var separatorItem = gtk_separator_menu_item_new()
+    
+    static var notificationSounds = getSystemNotificationSounds()
+    var selectedNotification : String?
+    
+    enum DefaultSounds : String {
+        case Default
+        case None
+    }
+    
+    enum Preferences : String {
+        case Prefix = "" // Prefix as separate function/computed property? Then no "/" needed.
+        case NotificationSound = "/notification_sound"
+        
+        var path : String { return "/plugins/macos\(self.rawValue)" }
+    }
     
     enum MenuItem {
         case About
@@ -161,6 +237,8 @@ func forEachInList(_ list: UnsafeMutablePointer<GList>?, function: (UnsafeMutabl
         let list = getVaList(array)
         g_object_new_valist(gtkosx_application_get_type(), nil, list)
         app = gtkosx_application_get()
+        super.init()
+        initPreferences()
     }
     
     @objc func pluginLoad(plugin: UnsafeMutablePointer<PurplePlugin>) {
@@ -172,6 +250,131 @@ func forEachInList(_ list: UnsafeMutablePointer<GList>?, function: (UnsafeMutabl
         connectMessageCallbacks()
         setBuddyListMenu()
         setConversationMenu()
+        log_all("macos", "Sounds: \(Plugin.notificationSounds)")
+        log_all("macos", "Default sound: \(NSUserNotificationDefaultSoundName)")
+    }
+    
+    func initPreferences() {
+        purple_prefs_add_none(Preferences.Prefix.path)
+        purple_prefs_add_string(Preferences.NotificationSound.path, "\(DefaultSounds.Default)")
+    }
+    
+    func loadPreferences() {
+        selectedNotification = String(cString: purple_prefs_get_string(Preferences.NotificationSound.path)!)
+    }
+    
+    // Based on copy of get_config_frame of convcolors.c official Pidgin plugin source (version 2.13)
+    // Some original comments still there.
+    @objc class func getConfigFrame(_ plugin: UnsafeMutablePointer<PurplePlugin>?) -> UnsafeMutablePointer<GtkWidget>?
+    {
+        // TODO: CLeanup variables.
+        // FIXME: Split function?
+        var ret : UnsafeMutablePointer<GtkWidget>?
+        var vbox : UnsafeMutablePointer<GtkWidget>?
+        var vbox2 : UnsafeMutablePointer<GtkBox>?
+        var sw : UnsafeMutablePointer<GtkWidget>?
+        var button : UnsafeMutablePointer<GtkWidget>?
+        var sg : UnsafeMutablePointer<GtkSizeGroup>?
+        var iter : GtkTreeIter
+        var event_view : UnsafeMutablePointer<GtkTreeView>?
+        var event_store : UnsafeMutablePointer<GtkListStore>?
+        var rend : UnsafeMutablePointer<GtkCellRenderer>?
+        var col : UnsafeMutablePointer<GtkTreeViewColumn>?
+        var sel : UnsafeMutablePointer<GtkTreeSelection>?
+        var path : GtkTreePath?
+        var hbox : UnsafeMutablePointer<GtkWidget>?
+        
+        ret = gtk_vbox_new(0, PIDGIN_HIG_CAT_SPACE);
+        ret?.withMemoryRebound(to: GtkContainer.self, capacity: 1) { (r : UnsafeMutablePointer<GtkContainer>?) in
+            gtk_container_set_border_width (r, guint(PIDGIN_HIG_BORDER))
+        }
+        
+        sg = gtk_size_group_new(GTK_SIZE_GROUP_HORIZONTAL)
+        
+        pidgin_make_frame(ret, "Notifications")?.withMemoryRebound(to: GtkBox.self, capacity: 1) {
+            vbox2 = $0
+        }
+        gtk_box_pack_start(vbox2, gtk_vbox_new(0, PIDGIN_HIG_BOX_SPACE), 0, 0, 0)
+        vbox = pidgin_make_frame(ret, "Notification Sound")
+        
+        // The following is an ugly hack to make the frame expand so the sound events list is big enough to be usable
+        vbox?.pointee.parent.withMemoryRebound(to: GtkBox.self, capacity: 1) { (p : UnsafeMutablePointer<GtkBox>?) in
+            gtk_box_set_child_packing(p, vbox, 1, 1, 0, GTK_PACK_START)
+        }
+        vbox?.pointee.parent.pointee.parent.withMemoryRebound(to: GtkBox.self, capacity: 1) { (p : UnsafeMutablePointer<GtkBox>?) in
+            gtk_box_set_child_packing(p, vbox?.pointee.parent, 1, 1, 0, GTK_PACK_START)
+        }
+        vbox?.pointee.parent.pointee.parent.pointee.parent.withMemoryRebound(to: GtkBox.self, capacity: 1) { (p : UnsafeMutablePointer<GtkBox>?) in
+            gtk_box_set_child_packing(p, vbox?.pointee.parent.pointee.parent, 1, 1, 0, GTK_PACK_START);
+        }
+        
+        /* SOUND SELECTION */
+        var types = [GTypes.G_TYPE_STRING, GTypes.G_TYPE_STRING].map{$0.rawValue}
+        event_store = gtk_list_store_newv(gint(types.count) , &types)
+        iter = GtkTreeIter(stamp: 0, user_data: nil, user_data2: nil, user_data3: nil)
+        for sound in notificationSounds {
+            gtk_list_store_append (event_store, &iter)
+            var gvalue = GValue()
+            g_value_init(&gvalue, GTypes.G_TYPE_STRING.rawValue)
+            
+            g_value_set_string(&gvalue, sound.0)
+            gtk_list_store_set_value(event_store, &iter, 0, &gvalue)
+            
+            g_value_set_string(&gvalue, sound.1)
+            gtk_list_store_set_value(event_store, &iter, 1, &gvalue)
+        }
+        
+        gtk_tree_view_new_with_model(OpaquePointer(event_store))?.withMemoryRebound(to: GtkTreeView.self, capacity: 1) {
+            event_view = $0
+        }
+        
+        sel = gtk_tree_view_get_selection (event_view)
+        // FIXME: Select current sound as default.
+        gtk_tree_selection_set_mode(sel, GTK_SELECTION_BROWSE)
+        // TODO: Support preview by selection/double click
+//        g_signal_connect (G_OBJECT (sel), "changed", G_CALLBACK (prefs_sound_sel), NULL);
+//        path = gtk_tree_path_new_first()
+//        gtk_tree_selection_select_path(sel, path)
+//        gtk_tree_path_free(path)
+        gtk_tree_selection_set_select_function(sel, view_selection_func, nil, nil)
+
+        // TODO: Do something with FALSE, TRUE, NULL predefined values.
+        let TRUE : gboolean = 1
+        rend = gtk_cell_renderer_text_new()
+        col = gtk_tree_view_column_new()
+        gtk_tree_view_column_set_title(col, "Sound")
+        gtk_tree_view_column_pack_start(col, rend, TRUE)
+        gtk_tree_view_column_add_attribute(col, rend, "text", 0)
+        gtk_tree_view_append_column (event_view, col)
+        
+        col = gtk_tree_view_column_new()
+        gtk_tree_view_column_set_title(col, "Directory")
+        gtk_tree_view_column_pack_start(col, rend, TRUE)
+        gtk_tree_view_column_add_attribute(col, rend, "text", 1)
+        gtk_tree_view_append_column (event_view, col)
+
+        event_store?.withMemoryRebound(to: GObject.self, capacity: 1) { o in
+            g_object_unref(o)
+        }
+        
+        vbox?.withMemoryRebound(to: GtkBox.self, capacity: 1) { (b : UnsafeMutablePointer<GtkBox>) in
+            event_view?.withMemoryRebound(to: GtkWidget.self, capacity: 1) { (e : UnsafeMutablePointer<GtkWidget>) in
+                gtk_box_pack_start(b, pidgin_make_scrollable(e, GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC, GTK_SHADOW_IN, -1, 100), TRUE, TRUE, 0)
+            }
+            hbox = gtk_hbox_new(FALSE, PIDGIN_HIG_BOX_SPACE);
+            gtk_box_pack_start(b, hbox, FALSE, FALSE, 0);
+        }
+
+        // Are there any buttons needed? Commented code left as example.
+//        button = gtk_button_new_with_mnemonic(_("_Reset"));
+//        g_signal_connect(G_OBJECT(button), "clicked", G_CALLBACK(reset_sound), NULL);
+//        gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 1);
+        
+        gtk_widget_show_all(ret)
+        g_object_unref(sg)
+        
+        // FIXME: Dealocate objects?
+        return ret
     }
     
     func setApplicationReady() {
@@ -299,24 +502,39 @@ func forEachInList(_ list: UnsafeMutablePointer<GList>?, function: (UnsafeMutabl
         if(!(flags?.pointee.shouldNotify() ?? false)){ return 0 }
         
         let buddy = purple_find_buddy(account, sender!.pointee);
-        let senderName = buddy != nil ? (buddy!.pointee.alias != nil) ? String(cString: buddy!.pointee.alias!) : String(cString: buddy!.pointee.name!) : String(cString: sender!.pointee!)
+        let senderName = buddy != nil ? (buddy!.pointee.alias != nil) ? String(cString: buddy!.pointee.alias) : buddy!.pointee.server_alias != nil ? String(cString: buddy!.pointee.server_alias) : String(cString: buddy!.pointee.name) : sender!.pointee != nil ? String(cString: sender!.pointee!) : "Unknown"
         let protocolName = String(cString: purple_account_get_protocol_name(account))
-        let withImages = flags!.pointee.containsImages
-        log_all("macos", "Message contains images: \(withImages)")
-        log_all("macos", "Conversation name: \(String(describing: conv?.pointee.name)), title: \(String(describing: conv?.pointee.title))")
+        if(flags != nil)
+        {
+            let withImages = flags!.pointee.containsImages
+            log_all("macos", "Message contains images: \(withImages)")
+            log_all("macos", "Conversation name: \(String(describing: conv?.pointee.name)), title: \(String(describing: conv?.pointee.title))")
+        }
         let isChat = conv?.pointee.type == PURPLE_CONV_TYPE_CHAT
         let notification = NSUserNotification()
         notification.title = senderName
         let chatName = String.fromC(conv?.pointee.title ?? conv?.pointee.name)
         notification.subtitle = isChat ? "\(chatName.isEmpty ? "Group Chat" : chatName) - \(protocolName)" : protocolName
         
-        //        notification.soundName = NSUserNotificationDefaultSoundName
-        notification.informativeText = String.fromC(message!.pointee)
+        if let sound = purple_prefs_get_string(Preferences.NotificationSound.path) {
+            if let defaultSound = DefaultSounds(rawValue: String(cString: sound)) {
+                switch(defaultSound) {
+                case .Default: notification.soundName = NSUserNotificationDefaultSoundName
+                case .None: notification.soundName = nil
+                }
+            }
+            else {
+                notification.soundName = String(cString: sound)
+            }
+//            sound.deallocate()
+        }
+        notification.informativeText = String.fromC(message?.pointee)
         
         if let image = getIcon(for: buddy) {
             notification.contentImage = NSImage(byReferencingFile: image)
         }
         //        NSUserNotificationCenter.default.delegate = self as NSUserNotificationCenterDelegate
+        log_all("macos", "Notification sound: \(notification.soundName ?? "None")")
         NSUserNotificationCenter.default.deliver(notification)
         gtkosx_application_attention_request(gtkosx_application_get(), INFO_REQUEST)
         return 0
@@ -345,4 +563,28 @@ func forEachInList(_ list: UnsafeMutablePointer<GList>?, function: (UnsafeMutabl
         
     }
     
+    static func getSystemNotificationSounds() -> [(String, String)] {
+        // TODO: Include bundle directory.
+        // TODO: Extract as class level? SHould it be in separate class/file? Is there any way to get all files from NSSound?
+        let defaultSoundsPaths = ["/System/Library/Sounds", "/Library/Sounds", ("~/Library/Sounds" as NSString).expandingTildeInPath as String]
+        // TODO: Better file format verification.
+        // let supportedExtensions = ["aiff", "wav", "caf"] // Seems to differ from NSSound supported files.
+
+        let fileManager = FileManager.default
+        var files = [(String, String)]()
+        
+        for soundsPath in defaultSoundsPaths {
+            let toAdd = try? fileManager.contentsOfDirectory(atPath: soundsPath)
+            if let filesToAdd = toAdd {
+                // Can absolute path even work? If not, should higher level (closer to user's home and bundle) files mask built-in?
+                files.append(contentsOf: filesToAdd.filter{!($0 as NSString).pathExtension.isEmpty }.map{(($0 as NSString).deletingPathExtension, soundsPath)})
+                log_all("macos", "Files retrieved from \(soundsPath): \(filesToAdd.count)")
+            }
+            else {
+                log_all("macos", "Error while retrieving files from \(soundsPath).")
+            }
+        }
+        // TODO: Think about better representation.
+        return [("\(DefaultSounds.None)", ""), ("\(DefaultSounds.Default)", "")] + files.sorted(by: <)
+    }
 }

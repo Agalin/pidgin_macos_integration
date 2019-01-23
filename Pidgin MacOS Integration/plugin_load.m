@@ -15,6 +15,21 @@ void log_callback(const char* category, const char* message, const char* callbac
 static Plugin* instance;
 static PurplePlugin* pplugin;
 
+GtkWidget* get_config_frame(PurplePlugin* plugin) {
+    return [Plugin getConfigFrame:plugin];
+}
+
+PidginPluginUiInfo ui_info = {
+    get_config_frame,
+    0,
+    
+    /* padding */
+    NULL,
+    NULL,
+    NULL,
+    NULL
+};
+
 void plugin_load_oc(PurplePlugin *plugin) {
     log_critical("macos", "Load\n");
     instance = [[Plugin alloc]init];
@@ -37,25 +52,25 @@ void plugin_init_oc(PurplePlugin *plugin) {
 void register_callback_with_data(PurplePlugin *plugin, gboolean (*function)(PurpleAccount *, char **, char **, PurpleConversation *, PurpleMessageFlags *, void*), const char* callback, void* data) {
     log_callback("macos", "Registering callback %s for conversation...\n", callback);
     purple_signal_connect(purple_conversations_get_handle(), callback, plugin, PURPLE_CALLBACK(function), data);
-    log_all("macos", "Registered\n");
+    log_all("macos", "Registered");
 }
 
 void register_callback_to_modify(PurplePlugin *plugin, gboolean (*function)(PurpleAccount *, char **, char **, PurpleConversation *, PurpleMessageFlags *), const char* callback) {
     log_callback("macos", "Registering callback %s for conversation...\n", callback);
     purple_signal_connect(purple_conversations_get_handle(), callback, plugin, PURPLE_CALLBACK(function), nil);
-    log_all("macos", "Registered\n");
+    log_all("macos", "Registered");
 }
 
 void register_callback(PurplePlugin *plugin, gboolean (*function)(PurpleAccount *, char *, char *, PurpleConversation *, PurpleMessageFlags *), const char* callback) {
     log_callback("macos", "Registering callback %s for conversation...\n", callback);
     purple_signal_connect(purple_conversations_get_handle(), callback, plugin, PURPLE_CALLBACK(function), nil);
-    log_all("macos", "Registered\n");
+    log_all("macos", "Registered");
 }
 
 void register_conversation_created_callback(PurplePlugin *plugin, gboolean (*function)(PurpleConversation *, void *), const char* callback, void *data) {
     log_callback("macos", "Registering callback %s for conversation...\n", callback);
     purple_signal_connect(purple_conversations_get_handle(), callback, plugin, PURPLE_CALLBACK(function), data);
-    log_all("macos", "Registered\n");
+    log_all("macos", "Registered");
 }
 
 void register_buddy_list_created_callback(PurplePlugin *plugin, gboolean (*function)(PurpleBuddyList *, void *), const char* callback, void *data) {
