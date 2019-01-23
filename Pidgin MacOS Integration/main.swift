@@ -151,6 +151,7 @@ func debug(_ message: String) {
     {
         fputs("\n", __stderrp)
     }
+    log_all("macos", message)
     #endif
 }
 
@@ -501,11 +502,14 @@ enum GTypes : UInt {
         if(!(flags?.pointee.shouldNotify() ?? false)){ return 0 }
         
         let buddy = purple_find_buddy(account, sender!.pointee);
-        let senderName = buddy != nil ? (buddy!.pointee.alias != nil) ? String(cString: buddy!.pointee.alias!) : String(cString: buddy!.pointee.name!) : String(cString: sender!.pointee!)
+        let senderName = buddy != nil ? (buddy!.pointee.alias != nil) ? String(cString: buddy!.pointee.alias) : buddy!.pointee.server_alias != nil ? String(cString: buddy!.pointee.server_alias) : String(cString: buddy!.pointee.name) : sender!.pointee != nil ? String(cString: sender!.pointee!) : "Unknown"
         let protocolName = String(cString: purple_account_get_protocol_name(account))
-        let withImages = flags!.pointee.containsImages
-        log_all("macos", "Message contains images: \(withImages)")
-        log_all("macos", "Conversation name: \(String(describing: conv?.pointee.name)), title: \(String(describing: conv?.pointee.title))")
+        if(flags != nil)
+        {
+            let withImages = flags!.pointee.containsImages
+            log_all("macos", "Message contains images: \(withImages)")
+            log_all("macos", "Conversation name: \(String(describing: conv?.pointee.name)), title: \(String(describing: conv?.pointee.title))")
+        }
         let isChat = conv?.pointee.type == PURPLE_CONV_TYPE_CHAT
         let notification = NSUserNotification()
         notification.title = senderName
