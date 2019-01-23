@@ -526,7 +526,7 @@ enum GTypes : UInt {
             else {
                 notification.soundName = String(cString: sound)
             }
-            sound.deallocate()
+//            sound.deallocate()
         }
         notification.informativeText = String.fromC(message!.pointee)
         
