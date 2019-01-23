@@ -333,9 +333,9 @@ enum GTypes : UInt {
         gtk_tree_selection_set_mode(sel, GTK_SELECTION_BROWSE)
         // TODO: Support preview by selection/double click
 //        g_signal_connect (G_OBJECT (sel), "changed", G_CALLBACK (prefs_sound_sel), NULL);
-        path = gtk_tree_path_new_first()
-        gtk_tree_selection_select_path(sel, path)
-        gtk_tree_path_free(path)
+//        path = gtk_tree_path_new_first()
+//        gtk_tree_selection_select_path(sel, path)
+//        gtk_tree_path_free(path)
         gtk_tree_selection_set_select_function(sel, view_selection_func, nil, nil)
 
         // TODO: Do something with FALSE, TRUE, NULL predefined values.
