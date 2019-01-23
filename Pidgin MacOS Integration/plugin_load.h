@@ -30,7 +30,7 @@ void plugin_unload_oc(PurplePlugin *plugin);
 void plugin_init_oc(PurplePlugin *plugin);
 
 void (*conv_test(void))(void);
-
+char* get_list_value_string(GtkTreeModel* model, GtkTreeIter* iter, gint column);
 
 struct im_image_data {
     int id;
