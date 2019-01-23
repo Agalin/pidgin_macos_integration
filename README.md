@@ -12,8 +12,9 @@ Homebrew has a formula for *gtk-chtheme* which makes theme change easier - and m
 
 There are currently following features implemented:
 * **Menu integration** - all buddy list and conversation menus moved from window to menubar, moved standard macOS options: *preferences*, *about* to application menu.
-* **Notification Center integration** - every message received shows native macOS notification and requests attention (jumping dock icon).
+* **Notification Center integration** - every message received shows native macOS notification and requests attention (jumping dock icon), plays configurable sound (currently only built-in seem to work).
 * Built-in GTK shortcuts mapped to ⌘-based from ⌃-based (limited to built-in, not Pidgin-defined) through [GTK OSX Application](http://gtk-osx.sourceforge.net/gtk-mac-integration/GtkosxApplication.html). Includes support for ⌘-Q (check issues section).
+* **Partial workaround for GTK2 Mojave rendering issues** - Mojave changes AppKit's redrawing logic and breaks some redraws for GTK2. In Pidgin it's reflected by not refreshing conversation on tab switch and so on. [More details](https://github.com/Agalin/pidgin_macos_integration/pull/5)
 
 ## Implementation details
 
@@ -22,8 +23,7 @@ Plugin is written in Swift. As Pidgin is written in C, bridging is needed. That'
 ## Issues and TODO
 
 * GTK OSX Application does not provide any way to cleanly deintegrate it from running GTK application. It means that plugin unload leaves Pidgin with some integration intact. Window menus are made visible again and callbacks are deregistered but that's all.
-* No configuration support. Plugin is in very early stage of development and at the moment does not support ANY form of configuration. Notification banners can be mutted from system preferences though.
-* No clean build procedure. Project is currently hardcoded to Homebrew-installed libraries in specific versions. It should be changed to *pkg-config*.
+* No clean build procedure. Project is currently hardcoded to Homebrew-installed libraries in enabled version. Probably should be changed to *pkg-config*.
 * No prebuilt libraries - see previous point.
 * Protocols are missing icons in Conversation **Send To** menu. They need to be added manually.
 * Notifications are displayed for *receiving-im-msg* and *receiving-chat-msg* instead of *displayed-im-msg* and *displayed-chat-msg* (I had some issues with text pointers for this one callback type) which means that filtered messages can still send notifications. **It can lower your privacy!**
@@ -34,11 +34,18 @@ Plugin is written in Swift. As Pidgin is written in C, bridging is needed. That'
 * ⌘-Q seems not to call proper Pidgin termination callbacks. Some settings may be lost when used!
 * ~~Application starts in background - that's actually issue with every GTK+ based app.~~ Fixed with correct `Info.plist` entries.
 * It's possible to add some kind of Touch Bar support.
+* Custom notification sounds are palyed correctly when tested but don't work for notifications.
 
-## Build/Install
+## Build
 
-As there are no prebuilt libraries and whole build system is currently a mess, it will require a lot of manual work with includes in XCode project settings.
-Homebrew dependencies (those I'm aware of, they should already require other used libraries, like *glib*):
-* Pidgin (obviously)
-* GTK+ (surprise!)
+Build using XCode.
+
+Homebrew dependencies:
+* Pidgin
+* GTK+
 * gtk-mac-integration
+* GLib
+* Cairo
+* Pango
+* Atk
+* Gettext
