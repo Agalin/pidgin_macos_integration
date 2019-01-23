@@ -214,6 +214,8 @@ enum GTypes : UInt {
     static var notificationSounds = getSystemNotificationSounds()
     var selectedNotification : String?
     
+    var configuredWindows = Set<UnsafeMutablePointer<GtkWidget>?>()
+    
     enum DefaultSounds : String {
         case Default
         case None
@@ -470,6 +472,12 @@ enum GTypes : UInt {
             }
             return 0
         }, "conversation-created", selfPtr!)
+        register_conversation_created_callback(instance, {conversation, data in
+            if let selfRef : Plugin = tryCast(data) {
+                return selfRef.handleConversationDestroyed(conversation: conversation)
+            }
+            return 0
+        }, "deleting-conversation", selfPtr!)
     }
     
     func unsetMenu() {
@@ -486,11 +494,53 @@ enum GTypes : UInt {
         NSApp.delegate = nil
     }
     
+    static func forceRedraw(widget: UnsafeMutablePointer<GtkWidget>?) {
+        gtk_widget_queue_draw(widget)
+        while (gtk_events_pending () != 0)
+        {
+            gtk_main_iteration()
+        }
+    }
+    
+    func registerRedrawCallbacks(conversationWindow: UnsafeMutablePointer<PidginWindow>?) {
+        let window = conversationWindow?.pointee.window
+        register_configuration_event_callback(window, { window, event, data in
+            debug("Redraw")
+            gtk_widget_queue_draw(window)
+            return FALSE
+        })
+        let callbacks = ["switch_page", "page-added", "page-removed"]
+        for cb in callbacks {
+            register_switch_page_callback(conversationWindow?.pointee.notebook, cb, window) { (notebook, page, page_index, window) -> gboolean in
+                debug("Redraw")
+                Plugin.forceRedraw(widget: window)
+                return FALSE
+            }
+            
+        }
+    }
+    
+    func handleConversationDestroyed(conversation: UnsafeMutablePointer<PurpleConversation>?) -> gboolean {
+        debug("Handling destroyed conversation")
+        let pidginConversation = conversation?.pointee.ui_data.assumingMemoryBound(to: PidginConversation.self)
+        let conversationWindow = pidgin_conv_get_window(pidginConversation)
+        Plugin.forceRedraw(widget: conversationWindow?.pointee.window)
+        return 0
+    }
+    
     func handleConversationCreated(conversation: UnsafeMutablePointer<PurpleConversation>?) -> gboolean {
         let pidginConversation = conversation?.pointee.ui_data.assumingMemoryBound(to: PidginConversation.self)
         let conversationWindow = pidgin_conv_get_window(pidginConversation)
         let menu = conversationWindow?.pointee.menu.menubar
         syncMenuBar(menu, visible: true)
+        if configuredWindows.insert(conversationWindow?.pointee.window).inserted {
+            debug("Configuring new window. Current count: \(configuredWindows.count)")
+            registerRedrawCallbacks(conversationWindow: conversationWindow)
+        }
+        else {
+            debug("Window already registered.")
+        }
+        Plugin.forceRedraw(widget: conversationWindow?.pointee.window)
         return 0
     }
     
