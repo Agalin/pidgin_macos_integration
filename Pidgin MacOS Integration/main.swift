@@ -528,7 +528,7 @@ enum GTypes : UInt {
             }
 //            sound.deallocate()
         }
-        notification.informativeText = String.fromC(message!.pointee)
+        notification.informativeText = String.fromC(message?.pointee)
         
         if let image = getIcon(for: buddy) {
             notification.contentImage = NSImage(byReferencingFile: image)
