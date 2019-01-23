@@ -196,12 +196,14 @@ enum GTypes : UInt {
     case G_TYPE_VARIANT = 0b1010100 // 21 << 2
 }
     
-@objc class Plugin : NSObject, NSUserNotificationCenterDelegate {
+@objc class Plugin : NSObject, NSUserNotificationCenterDelegate, NSApplicationDelegate {
     var instance: UnsafeMutablePointer<PurplePlugin>?
     static let callbacks = ["receiving-im-msg", "receiving-chat-msg", /*"received-im-msg", "received-chat-msg",*/ "displayed-im-msg", "displayed-chat-msg"]
     var app : UnsafeMutablePointer<GtkosxApplication>
     var selfPtr : UnsafeMutableRawPointer?
     var appReady = false
+    var attentionRequests = Set<Int>()
+    let requestSemaphore = DispatchSemaphore(value: 1)
     
     lazy var aboutItem = getMenuItem(type: .About)
     lazy var helpItem = getMenuItem(type: .Help)
@@ -252,6 +254,7 @@ enum GTypes : UInt {
         setConversationMenu()
         log_all("macos", "Sounds: \(Plugin.notificationSounds)")
         log_all("macos", "Default sound: \(NSUserNotificationDefaultSoundName)")
+        NSApp.delegate = self
     }
     
     func initPreferences() {
@@ -480,6 +483,7 @@ enum GTypes : UInt {
     @objc func pluginUnload(plugin: UnsafeMutablePointer<PurplePlugin>) {
         unsetMenu()
         purple_signals_disconnect_by_handle(plugin);
+        NSApp.delegate = nil
     }
     
     func handleConversationCreated(conversation: UnsafeMutablePointer<PurpleConversation>?) -> gboolean {
@@ -498,7 +502,17 @@ enum GTypes : UInt {
         return 0
     }
     
+    func requestAttention() {
+        requestSemaphore.wait()
+        attentionRequests.insert(NSApp.requestUserAttention(.informationalRequest))
+        requestSemaphore.signal()
+    }
+    
     func handleReceivedMessage(account: UnsafeMutablePointer<PurpleAccount>?, sender: UnsafeMutablePointer<CString>?, message: UnsafeMutablePointer<CString>?, conv: UnsafeMutablePointer<PurpleConversation>?, flags: UnsafeMutablePointer<PurpleMessageFlags>?) -> gboolean {
+        if(NSApp.isActive) {
+            log_all("macos", "Pidgin is active, skipping notification.")
+            return 0
+        }
         if(!(flags?.pointee.shouldNotify() ?? false)){ return 0 }
         
         let buddy = purple_find_buddy(account, sender!.pointee);
@@ -536,7 +550,7 @@ enum GTypes : UInt {
         //        NSUserNotificationCenter.default.delegate = self as NSUserNotificationCenterDelegate
         log_all("macos", "Notification sound: \(notification.soundName ?? "None")")
         NSUserNotificationCenter.default.deliver(notification)
-        gtkosx_application_attention_request(gtkosx_application_get(), INFO_REQUEST)
+        requestAttention()
         return 0
     }
     
@@ -551,9 +565,9 @@ enum GTypes : UInt {
         return nil
     }
     
-    //    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
-    //        return true
-    //    }
+    func userNotificationCenter(_ center: NSUserNotificationCenter, shouldPresent notification: NSUserNotification) -> Bool {
+        return !NSApp.isActive
+    }
     
     func userNotificationCenter(_: NSUserNotificationCenter, didDeliver: NSUserNotification) {
         
@@ -586,5 +600,22 @@ enum GTypes : UInt {
         }
         // TODO: Think about better representation.
         return [("\(DefaultSounds.None)", ""), ("\(DefaultSounds.Default)", "")] + files.sorted(by: <)
+    }
+    
+    func applicationDidBecomeActive(_ notification: Notification) {
+        debug("Is active!")
+        requestSemaphore.wait()
+        let requests = attentionRequests
+        attentionRequests = Set()
+        requestSemaphore.signal()
+        debug("Clearing attention requests: \(requests)")
+        for id in requests
+        {
+            NSApp.cancelUserAttentionRequest(id)
+        }
+    }
+    
+    func applicationDidResignActive(_ notification: Notification) {
+        debug("Is inactive!")
     }
 }
