@@ -443,9 +443,12 @@ enum GTypes : UInt {
     }
     
     func setBuddyListMenu() {
-        let blistMenu = gtk_widget_get_parent(pidgin_blist_get_default_gtk_blist()!.pointee.menutray)
-        if(blistMenu != nil){
-            syncMenuBar(blistMenu, visible: true)
+        let blist = pidgin_blist_get_default_gtk_blist()
+        if(blist != nil){
+            let blistMenu = gtk_widget_get_parent(blist!.pointee.menutray)
+            if(blistMenu != nil){
+                syncMenuBar(blistMenu, visible: true)
+            }
         }
         register_buddy_list_created_callback(instance, {blist, data in
             if let selfRef : Plugin = tryCast(data) {
