@@ -12,9 +12,6 @@
 
 void log_callback(const char* category, const char* message, const char* callback);
 
-static Plugin* instance;
-static PurplePlugin* pplugin;
-
 GtkWidget* get_config_frame(PurplePlugin* plugin) {
     return [Plugin getConfigFrame:plugin];
 }
@@ -32,16 +29,8 @@ PidginPluginUiInfo ui_info = {
 
 void plugin_load_oc(PurplePlugin *plugin) {
     log_critical("macos", "Load\n");
-    instance = [[Plugin alloc]init];
-    pplugin = plugin;
+    Plugin* instance = [[Plugin alloc]init];
     [instance pluginLoadWithPlugin:plugin];
-}
-
-void plugin_unload_oc(PurplePlugin *plugin) {
-    log_critical("macos", "Unload\n");
-    [instance pluginUnloadWithPlugin:plugin];
-    instance = nil;
-    pplugin = nil;
 }
 
 void plugin_init_oc(PurplePlugin *plugin) {

@@ -28,8 +28,7 @@ plugin_load(PurplePlugin *plugin) {
 }
 
 static gboolean plugin_unload(PurplePlugin *plugin) {
-    plugin_unload_oc(plugin);
-    return TRUE;
+    return FALSE;
 }
 
 static PurplePluginInfo info = {
