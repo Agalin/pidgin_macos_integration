@@ -377,6 +377,7 @@
 					"/usr/local/opt/pidgin/include/**",
 					/usr/local/opt/gettext/include,
 					/usr/local/opt/pidgin/include/libpurple/,
+					"/usr/local/opt/harfbuzz/include/**",
 				);
 			};
 			name = Debug;
@@ -452,6 +453,7 @@
 					"/usr/local/opt/pidgin/include/**",
 					/usr/local/opt/gettext/include,
 					/usr/local/opt/pidgin/include/libpurple/,
+					"/usr/local/opt/harfbuzz/include/**",
 				);
 			};
 			name = Release;

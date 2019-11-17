@@ -28,8 +28,7 @@ plugin_load(PurplePlugin *plugin) {
 }
 
 static gboolean plugin_unload(PurplePlugin *plugin) {
-    plugin_unload_oc(plugin);
-    return TRUE;
+    return FALSE;
 }
 
 static PurplePluginInfo info = {
@@ -44,7 +43,7 @@ static PurplePluginInfo info = {
     
     "gtk-agalin-macos_integration",
     "MacOS Integration",
-    "0.1",
+    "0.1.1",
     
     "MacOS shell integration for Pidgin",
     "MacOS shell integration for Pidgin. Provides integration with Cocoa through GTK OSX Application module. Adds support for native message notifications, attention requests, moves menu to top menubar as in native app, moves some menu options like preferences or about to standard macOS locations.",

@@ -491,12 +491,6 @@ enum GTypes : UInt {
         setConversationMenuForEachWindow(visible: false)
     }
     
-    @objc func pluginUnload(plugin: UnsafeMutablePointer<PurplePlugin>) {
-        unsetMenu()
-        purple_signals_disconnect_by_handle(plugin);
-        NSApp.delegate = nil
-    }
-    
     static func forceRedraw(widget: UnsafeMutablePointer<GtkWidget>?) {
         gtk_widget_queue_draw(widget)
         while (gtk_events_pending () != 0)

@@ -28,7 +28,6 @@ void log_all(const char* category, const char* message);
 void log_critical(const char* category, const char* message);
 
 void plugin_load_oc(PurplePlugin *plugin);
-void plugin_unload_oc(PurplePlugin *plugin);
 void plugin_init_oc(PurplePlugin *plugin);
 
 void (*conv_test(void))(void);
