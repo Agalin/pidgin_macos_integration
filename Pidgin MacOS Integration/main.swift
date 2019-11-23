@@ -141,6 +141,7 @@ func toPtr<T : AnyObject>(_ obj : T) -> UnsafeMutableRawPointer {
 }
 
 func fromPtr<T : AnyObject>(_ ptr : UnsafeMutableRawPointer) -> T {
+    debug("From ptr: \(String.init(describing: ptr))")
     return Unmanaged<T>.fromOpaque(ptr).takeUnretainedValue()
 }
 
@@ -257,6 +258,7 @@ enum GTypes : UInt {
         log_all("macos", "Sounds: \(Plugin.notificationSounds)")
         log_all("macos", "Default sound: \(NSUserNotificationDefaultSoundName)")
         NSApp.delegate = self
+        debug("Load complete")
     }
     
     func initPreferences() {
@@ -392,6 +394,7 @@ enum GTypes : UInt {
     func connectMessageCallbacks() {
         for c in Plugin.callbacks {
             register_callback_with_data(instance!, {account, sender, message, conv, flags, data in
+                debug("Message callback")
                 if let selfRef : Plugin = tryCast(data) {
                     return selfRef.handleReceivedMessage(account: account, sender: sender, message: message, conv: conv, flags: flags)
                 }
@@ -451,6 +454,7 @@ enum GTypes : UInt {
             }
         }
         register_buddy_list_created_callback(instance, {blist, data in
+            debug("Buddy list created callback")
             if let selfRef : Plugin = tryCast(data) {
                 return selfRef.handleBuddyListCreated(list: blist)
             }
@@ -470,12 +474,14 @@ enum GTypes : UInt {
     func setConversationMenu() {
         setConversationMenuForEachWindow(visible: true)
         register_conversation_created_callback(instance, {conversation, data in
+            debug("Conversation created callback")
             if let selfRef : Plugin = tryCast(data) {
                 return selfRef.handleConversationCreated(conversation: conversation)
             }
             return 0
         }, "conversation-created", selfPtr!)
         register_conversation_created_callback(instance, {conversation, data in
+            debug("Conversation deleted callback")
             if let selfRef : Plugin = tryCast(data) {
                 return selfRef.handleConversationDestroyed(conversation: conversation)
             }
