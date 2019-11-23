@@ -12,6 +12,8 @@
 
 void log_callback(const char* category, const char* message, const char* callback);
 
+static Plugin* instance;
+
 GtkWidget* get_config_frame(PurplePlugin* plugin) {
     return [Plugin getConfigFrame:plugin];
 }
@@ -29,7 +31,7 @@ PidginPluginUiInfo ui_info = {
 
 void plugin_load_oc(PurplePlugin *plugin) {
     log_critical("macos", "Load\n");
-    Plugin* instance = [[Plugin alloc]init];
+    instance = [[Plugin alloc]init];
     [instance pluginLoadWithPlugin:plugin];
 }
 
