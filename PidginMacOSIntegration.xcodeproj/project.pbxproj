@@ -12,6 +12,13 @@
 		DF32486C24CF5C33003E4F23 /* Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = DF32486B24CF5C33003E4F23 /* Menu.m */; };
 		DF32486F24CF5E8F003E4F23 /* GtkTree.m in Sources */ = {isa = PBXBuildFile; fileRef = DF32486E24CF5E8F003E4F23 /* GtkTree.m */; };
 		DF32487424CF5FBE003E4F23 /* GtkWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = DF32487324CF5FBE003E4F23 /* GtkWindow.m */; };
+		DF32487824CF6288003E4F23 /* PidginConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32487724CF6288003E4F23 /* PidginConversation.swift */; };
+		DF32487B24CF6394003E4F23 /* GlibEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32487A24CF6394003E4F23 /* GlibEnum.swift */; };
+		DF32487E24CF63EC003E4F23 /* PurpleMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32487D24CF63EC003E4F23 /* PurpleMessage.swift */; };
+		DF32488024CF649C003E4F23 /* ConfigWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32487F24CF649C003E4F23 /* ConfigWindow.swift */; };
+		DF32488224CF6528003E4F23 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32488124CF6528003E4F23 /* Log.swift */; };
+		DF32488424CF659C003E4F23 /* GlibGList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32488324CF659C003E4F23 /* GlibGList.swift */; };
+		DF32488624CF65D6003E4F23 /* PointerCast.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32488524CF65D6003E4F23 /* PointerCast.swift */; };
 		DF496AEC211E76020059EE2C /* Main.c in Sources */ = {isa = PBXBuildFile; fileRef = DF496AEB211E76020059EE2C /* Main.c */; };
 		DFE300C5211E5B89000E188E /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE300C4211E5B89000E188E /* Main.swift */; };
 		DFE300CD211E5BFC000E188E /* PluginLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE300CC211E5BFC000E188E /* PluginLoad.m */; };
@@ -42,6 +49,13 @@
 		DF32487224CF5F87003E4F23 /* GtkWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GtkWindow.h; sourceTree = "<group>"; };
 		DF32487324CF5FBE003E4F23 /* GtkWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GtkWindow.m; sourceTree = "<group>"; };
 		DF32487624CF6068003E4F23 /* PidginImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PidginImage.h; sourceTree = "<group>"; };
+		DF32487724CF6288003E4F23 /* PidginConversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PidginConversation.swift; sourceTree = "<group>"; };
+		DF32487A24CF6394003E4F23 /* GlibEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlibEnum.swift; sourceTree = "<group>"; };
+		DF32487D24CF63EC003E4F23 /* PurpleMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleMessage.swift; sourceTree = "<group>"; };
+		DF32487F24CF649C003E4F23 /* ConfigWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigWindow.swift; sourceTree = "<group>"; };
+		DF32488124CF6528003E4F23 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		DF32488324CF659C003E4F23 /* GlibGList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlibGList.swift; sourceTree = "<group>"; };
+		DF32488524CF65D6003E4F23 /* PointerCast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerCast.swift; sourceTree = "<group>"; };
 		DF496AEA211E76020059EE2C /* Main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Main.h; sourceTree = "<group>"; };
 		DF496AEB211E76020059EE2C /* Main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Main.c; sourceTree = "<group>"; };
 		DFD69E6F2126633300532B79 /* sendbutton.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = sendbutton.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/sendbutton.so; sourceTree = "<group>"; };
@@ -97,8 +111,26 @@
 			isa = PBXGroup;
 			children = (
 				DF32487624CF6068003E4F23 /* PidginImage.h */,
+				DF32487724CF6288003E4F23 /* PidginConversation.swift */,
 			);
 			path = Pidgin;
+			sourceTree = "<group>";
+		};
+		DF32487924CF6376003E4F23 /* Glib */ = {
+			isa = PBXGroup;
+			children = (
+				DF32487A24CF6394003E4F23 /* GlibEnum.swift */,
+				DF32488324CF659C003E4F23 /* GlibGList.swift */,
+			);
+			path = Glib;
+			sourceTree = "<group>";
+		};
+		DF32487C24CF63D6003E4F23 /* Purple */ = {
+			isa = PBXGroup;
+			children = (
+				DF32487D24CF63EC003E4F23 /* PurpleMessage.swift */,
+			);
+			path = Purple;
 			sourceTree = "<group>";
 		};
 		DFD69E6E2126633300532B79 /* Frameworks */ = {
@@ -150,17 +182,22 @@
 		DFE300C3211E5B89000E188E /* PidginMacOSItegration */ = {
 			isa = PBXGroup;
 			children = (
+				DF32487C24CF63D6003E4F23 /* Purple */,
+				DF32487924CF6376003E4F23 /* Glib */,
 				DF32487524CF6054003E4F23 /* Pidgin */,
 				DF32487124CF5F27003E4F23 /* Gtk */,
 				DFE300CC211E5BFC000E188E /* PluginLoad.m */,
+				DF32487F24CF649C003E4F23 /* ConfigWindow.swift */,
 				DF05113E212621A000B993BA /* PluginLoad.h */,
 				DFE300C4211E5B89000E188E /* Main.swift */,
+				DF32488524CF65D6003E4F23 /* PointerCast.swift */,
 				DF496AEA211E76020059EE2C /* Main.h */,
 				DF496AEB211E76020059EE2C /* Main.c */,
 				DF32486324CF5874003E4F23 /* Callback.m */,
 				DF32486524CF58D2003E4F23 /* Callback.h */,
 				DF32486824CF59CE003E4F23 /* Log.m */,
 				DF32486A24CF59E0003E4F23 /* Log.h */,
+				DF32488124CF6528003E4F23 /* Log.swift */,
 				DF32486B24CF5C33003E4F23 /* Menu.m */,
 				DF32486D24CF5D83003E4F23 /* Menu.h */,
 			);
@@ -225,14 +262,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF32487E24CF63EC003E4F23 /* PurpleMessage.swift in Sources */,
 				DF32486924CF59CE003E4F23 /* Log.m in Sources */,
+				DF32488624CF65D6003E4F23 /* PointerCast.swift in Sources */,
+				DF32488224CF6528003E4F23 /* Log.swift in Sources */,
 				DFE300C5211E5B89000E188E /* Main.swift in Sources */,
 				DF32486C24CF5C33003E4F23 /* Menu.m in Sources */,
 				DFE300CD211E5BFC000E188E /* PluginLoad.m in Sources */,
+				DF32487B24CF6394003E4F23 /* GlibEnum.swift in Sources */,
+				DF32488424CF659C003E4F23 /* GlibGList.swift in Sources */,
+				DF32488024CF649C003E4F23 /* ConfigWindow.swift in Sources */,
 				DF32487424CF5FBE003E4F23 /* GtkWindow.m in Sources */,
 				DF32486424CF5874003E4F23 /* Callback.m in Sources */,
 				DF32486F24CF5E8F003E4F23 /* GtkTree.m in Sources */,
 				DF496AEC211E76020059EE2C /* Main.c in Sources */,
+				DF32487824CF6288003E4F23 /* PidginConversation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
