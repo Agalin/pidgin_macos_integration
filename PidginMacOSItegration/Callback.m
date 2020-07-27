@@ -1,44 +1,16 @@
 //
-//  test.m
-//  Pidgin MacOS Integration
+//  Callback.m
+//  PidginMacOSIntegration
 //
-//  Created by Agalin on 11.08.2018.
-//  Copyright © 2018 Agalin. All rights reserved.
+//  Created by Agalin on 27/07/2020.
+//  Copyright © 2020 Agalin. All rights reserved.
 //
 
-#import "plugin_load.h"
 #import <Foundation/Foundation.h>
-#import "Pidgin_MacOS_Integration-Swift.h"
+#import "Callback.h"
+#import "Log.h"
+#import "pidgin/gtkblist.h"
 
-void log_callback(const char* category, const char* message, const char* callback);
-
-static Plugin* instance;
-
-GtkWidget* get_config_frame(PurplePlugin* plugin) {
-    return [Plugin getConfigFrame:plugin];
-}
-
-PidginPluginUiInfo ui_info = {
-    get_config_frame,
-    0,
-    
-    /* padding */
-    NULL,
-    NULL,
-    NULL,
-    NULL
-};
-
-void plugin_load_oc(PurplePlugin *plugin) {
-    log_critical("macos", "Load\n");
-    instance = [[Plugin alloc]init];
-    [instance pluginLoadWithPlugin:plugin];
-}
-
-void plugin_init_oc(PurplePlugin *plugin) {
-    log_critical("macos", "Init\n");
-//    bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
-}
 
 void register_callback_with_data(PurplePlugin *plugin, gboolean (*function)(PurpleAccount *, char **, char **, PurpleConversation *, PurpleMessageFlags *, void*), const char* callback, void* data) {
     log_callback("macos", "Registering callback %s for conversation...\n", callback);
@@ -89,35 +61,3 @@ void register_configuration_event_callback(GtkWidget *window, gboolean function 
         log_all("macos", "Failure.");
     }
 }
-
-void log_callback(const char* category, const char* message, const char* callback) {
-    purple_debug_info(category, message, callback);
-}
-
-void log_all(const char* category, const char* message)
-{
-    purple_debug_info(category, "%s\n", message);
-}
-
-void log_critical(const char* category, const char* message)
-{
-    purple_debug(PURPLE_DEBUG_FATAL, category, "%s\n", message);
-}
-
-void set_menu(GtkWidget *menu){
-    gtkosx_application_set_menu_bar(gtkosx_application_get(), GTK_MENU_SHELL(menu));
-}
-
-char* get_list_value_string(GtkTreeModel* model, GtkTreeIter* iter, gint column) {
-    gchar* value = NULL;
-    gtk_tree_model_get_value(model, iter, column, value);
-    g_free(value);
-    gtk_tree_model_get(model, iter, 0, value, -1);
-    return value;
-}
-
-GtkWindow* to_window(void* obj) {
-    return GTK_WINDOW(obj);
-}
-
-

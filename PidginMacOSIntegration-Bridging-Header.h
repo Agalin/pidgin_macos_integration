@@ -25,4 +25,10 @@
 #import <version.h>
 
 // Bridge fileś
-#import "plugin_load.h"
+#import "PluginLoad.h"
+#import "Callback.h"
+#import "Log.h"
+#import "Menu.h"
+#import "GtkTree.h"
+#import "GtkWindow.h"
+#import "PidginImage.h"
