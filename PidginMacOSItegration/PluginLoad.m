@@ -6,9 +6,9 @@
 //  Copyright © 2018 Agalin. All rights reserved.
 //
 
-#import "plugin_load.h"
+#import "PluginLoad.h"
 #import <Foundation/Foundation.h>
-#import "Pidgin_MacOS_Integration-Swift.h"
+#import "PidginMacOSIntegration-Swift.h"
 
 void log_callback(const char* category, const char* message, const char* callback);
 

@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DF496AEC211E76020059EE2C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = DF496AEB211E76020059EE2C /* main.c */; };
-		DFE300C5211E5B89000E188E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE300C4211E5B89000E188E /* main.swift */; };
-		DFE300CD211E5BFC000E188E /* plugin_load.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE300CC211E5BFC000E188E /* plugin_load.m */; };
+		DF496AEC211E76020059EE2C /* Main.c in Sources */ = {isa = PBXBuildFile; fileRef = DF496AEB211E76020059EE2C /* Main.c */; };
+		DFE300C5211E5B89000E188E /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE300C4211E5B89000E188E /* Main.swift */; };
+		DFE300CD211E5BFC000E188E /* PluginLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE300CC211E5BFC000E188E /* PluginLoad.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,9 +25,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		DF05113E212621A000B993BA /* plugin_load.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = plugin_load.h; sourceTree = "<group>"; };
-		DF496AEA211E76020059EE2C /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
-		DF496AEB211E76020059EE2C /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		DF05113E212621A000B993BA /* PluginLoad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PluginLoad.h; sourceTree = "<group>"; };
+		DF496AEA211E76020059EE2C /* Main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Main.h; sourceTree = "<group>"; };
+		DF496AEB211E76020059EE2C /* Main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Main.c; sourceTree = "<group>"; };
 		DFD69E6F2126633300532B79 /* sendbutton.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = sendbutton.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/sendbutton.so; sourceTree = "<group>"; };
 		DFD69E702126633300532B79 /* history.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = history.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/history.so; sourceTree = "<group>"; };
 		DFD69E712126633300532B79 /* relnot.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = relnot.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/relnot.so; sourceTree = "<group>"; };
@@ -49,10 +49,10 @@
 		DFD69E812126633300532B79 /* xmppconsole.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = xmppconsole.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/xmppconsole.so; sourceTree = "<group>"; };
 		DFD69E95212663A100532B79 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib; sourceTree = "<group>"; };
 		DFD69E972126699A00532B79 /* pidgin */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = pidgin; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/bin/pidgin; sourceTree = "<group>"; };
-		DFE300C1211E5B89000E188E /* Pidgin MacOS Integration */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Pidgin MacOS Integration"; sourceTree = BUILT_PRODUCTS_DIR; };
-		DFE300C4211E5B89000E188E /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		DFE300CB211E5BFC000E188E /* Pidgin MacOS Integration-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pidgin MacOS Integration-Bridging-Header.h"; sourceTree = "<group>"; };
-		DFE300CC211E5BFC000E188E /* plugin_load.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = plugin_load.m; sourceTree = "<group>"; };
+		DFE300C1211E5B89000E188E /* PidginMacOSIntegration */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PidginMacOSIntegration; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFE300C4211E5B89000E188E /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		DFE300CB211E5BFC000E188E /* PidginMacOSIntegration-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PidginMacOSIntegration-Bridging-Header.h"; sourceTree = "<group>"; };
+		DFE300CC211E5BFC000E188E /* PluginLoad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PluginLoad.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,9 +97,9 @@
 		DFE300B8211E5B89000E188E = {
 			isa = PBXGroup;
 			children = (
-				DFE300C3211E5B89000E188E /* Pidgin MacOS Integration */,
+				DFE300C3211E5B89000E188E /* PidginMacOSItegration */,
 				DFE300C2211E5B89000E188E /* Products */,
-				DFE300CB211E5BFC000E188E /* Pidgin MacOS Integration-Bridging-Header.h */,
+				DFE300CB211E5BFC000E188E /* PidginMacOSIntegration-Bridging-Header.h */,
 				DFD69E6E2126633300532B79 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -107,29 +107,29 @@
 		DFE300C2211E5B89000E188E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				DFE300C1211E5B89000E188E /* Pidgin MacOS Integration */,
+				DFE300C1211E5B89000E188E /* PidginMacOSIntegration */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DFE300C3211E5B89000E188E /* Pidgin MacOS Integration */ = {
+		DFE300C3211E5B89000E188E /* PidginMacOSItegration */ = {
 			isa = PBXGroup;
 			children = (
-				DFE300CC211E5BFC000E188E /* plugin_load.m */,
-				DF05113E212621A000B993BA /* plugin_load.h */,
-				DFE300C4211E5B89000E188E /* main.swift */,
-				DF496AEA211E76020059EE2C /* main.h */,
-				DF496AEB211E76020059EE2C /* main.c */,
+				DFE300CC211E5BFC000E188E /* PluginLoad.m */,
+				DF05113E212621A000B993BA /* PluginLoad.h */,
+				DFE300C4211E5B89000E188E /* Main.swift */,
+				DF496AEA211E76020059EE2C /* Main.h */,
+				DF496AEB211E76020059EE2C /* Main.c */,
 			);
-			path = "Pidgin MacOS Integration";
+			path = PidginMacOSItegration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DFE300C0211E5B89000E188E /* Pidgin MacOS Integration */ = {
+		DFE300C0211E5B89000E188E /* PidginMacOSIntegration */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DFE300C8211E5B89000E188E /* Build configuration list for PBXNativeTarget "Pidgin MacOS Integration" */;
+			buildConfigurationList = DFE300C8211E5B89000E188E /* Build configuration list for PBXNativeTarget "PidginMacOSIntegration" */;
 			buildPhases = (
 				DFE300BD211E5B89000E188E /* Sources */,
 				DFE300BE211E5B89000E188E /* Frameworks */,
@@ -139,9 +139,9 @@
 			);
 			dependencies = (
 			);
-			name = "Pidgin MacOS Integration";
-			productName = "Pidgin MacOS Integration";
-			productReference = DFE300C1211E5B89000E188E /* Pidgin MacOS Integration */;
+			name = PidginMacOSIntegration;
+			productName = "PidginMacOSIntegration";
+			productReference = DFE300C1211E5B89000E188E /* PidginMacOSIntegration */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -160,7 +160,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DFE300BC211E5B89000E188E /* Build configuration list for PBXProject "Pidgin MacOS Integration" */;
+			buildConfigurationList = DFE300BC211E5B89000E188E /* Build configuration list for PBXProject "PidginMacOSIntegration" */;
 			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -172,7 +172,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DFE300C0211E5B89000E188E /* Pidgin MacOS Integration */,
+				DFE300C0211E5B89000E188E /* PidginMacOSIntegration */,
 			);
 		};
 /* End PBXProject section */
@@ -182,9 +182,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFE300C5211E5B89000E188E /* main.swift in Sources */,
-				DFE300CD211E5BFC000E188E /* plugin_load.m in Sources */,
-				DF496AEC211E76020059EE2C /* main.c in Sources */,
+				DFE300C5211E5B89000E188E /* Main.swift in Sources */,
+				DFE300CD211E5BFC000E188E /* PluginLoad.m in Sources */,
+				DF496AEC211E76020059EE2C /* Main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,9 +361,9 @@
 					/usr/local/bin/pidgin,
 				);
 				PRODUCT_NAME = "${TARGET_NAME}";
-				SWIFT_OBJC_BRIDGING_HEADER = "Pidgin MacOS Integration-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_OBJC_BRIDGING_HEADER = "PidginMacOSIntegration-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				SYSTEM_HEADER_SEARCH_PATHS = (
 					"/usr/local/opt/glib/include/**",
 					"/usr/local/opt/glib/lib/glib-2.0/include/",
@@ -438,8 +438,8 @@
 					/usr/local/bin/pidgin,
 				);
 				PRODUCT_NAME = "${TARGET_NAME}";
-				SWIFT_OBJC_BRIDGING_HEADER = "Pidgin MacOS Integration-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_OBJC_BRIDGING_HEADER = "PidginMacOSIntegration-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				SYSTEM_HEADER_SEARCH_PATHS = (
 					"/usr/local/opt/glib/include/**",
 					"/usr/local/opt/glib/lib/glib-2.0/include/",
@@ -461,7 +461,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DFE300BC211E5B89000E188E /* Build configuration list for PBXProject "Pidgin MacOS Integration" */ = {
+		DFE300BC211E5B89000E188E /* Build configuration list for PBXProject "PidginMacOSIntegration" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DFE300C6211E5B89000E188E /* Debug */,
@@ -470,7 +470,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DFE300C8211E5B89000E188E /* Build configuration list for PBXNativeTarget "Pidgin MacOS Integration" */ = {
+		DFE300C8211E5B89000E188E /* Build configuration list for PBXNativeTarget "PidginMacOSIntegration" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DFE300C9211E5B89000E188E /* Debug */,

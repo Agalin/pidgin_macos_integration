@@ -1,5 +1,5 @@
 //
-//  main.h
+//  Main.h
 //  Pidgin MacOS Integration
 //
 //  Created by Agalin on 11.08.2018.

@@ -1,12 +1,12 @@
 //
-//  main.c
+//  Main.c
 //  Pidgin MacOS Integration
 //
 //  Created by Agalin on 11.08.2018.
 //  Copyright © 2018 Agalin. All rights reserved.
 //
 
-#include "main.h"
+#include "Main.h"
 
 #define PURPLE_PLUGINS
 
@@ -17,7 +17,7 @@
 #include "plugin.h"
 #include "version.h"
 
-#include "plugin_load.h"
+#include "PluginLoad.h"
 
 extern PurplePluginUiInfo ui_info;
 

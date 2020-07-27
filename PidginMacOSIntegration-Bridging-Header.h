@@ -25,4 +25,4 @@
 #import <version.h>
 
 // Bridge fileś
-#import "plugin_load.h"
+#import "PluginLoad.h"
