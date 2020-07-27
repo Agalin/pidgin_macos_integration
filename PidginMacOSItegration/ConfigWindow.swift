@@ -9,8 +9,7 @@
 import Foundation
 import Cocoa
 
-// FIXME: Rename to camelcase.
-func view_selection_func (selection : UnsafeMutablePointer<GtkTreeSelection>!, model : GtkTreeModel!, path : GtkTreePath!, path_currently_selected : gboolean, userdata : gpointer!) -> gboolean {
+func selectNotificationSound (selection : UnsafeMutablePointer<GtkTreeSelection>!, model : GtkTreeModel!, path : GtkTreePath!, path_currently_selected : gboolean, userdata : gpointer!) -> gboolean {
     var iter = GtkTreeIter(stamp: 0, user_data: nil, user_data2: nil, user_data3: nil)
     let result = gtk_tree_model_get_iter(model, &iter, path)
     if (result == 1)

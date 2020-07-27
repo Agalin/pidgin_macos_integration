@@ -174,7 +174,7 @@ extension String {
 //        path = gtk_tree_path_new_first()
 //        gtk_tree_selection_select_path(sel, path)
 //        gtk_tree_path_free(path)
-        gtk_tree_selection_set_select_function(sel, view_selection_func, nil, nil)
+        gtk_tree_selection_set_select_function(sel, selectNotificationSound, nil, nil)
 
         // TODO: Do something with FALSE, TRUE, NULL predefined values.
         let TRUE : gboolean = 1
