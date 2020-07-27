@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF32486424CF5874003E4F23 /* Callback.m in Sources */ = {isa = PBXBuildFile; fileRef = DF32486324CF5874003E4F23 /* Callback.m */; };
+		DF32486924CF59CE003E4F23 /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = DF32486824CF59CE003E4F23 /* Log.m */; };
+		DF32486C24CF5C33003E4F23 /* Menu.m in Sources */ = {isa = PBXBuildFile; fileRef = DF32486B24CF5C33003E4F23 /* Menu.m */; };
+		DF32486F24CF5E8F003E4F23 /* GtkTree.m in Sources */ = {isa = PBXBuildFile; fileRef = DF32486E24CF5E8F003E4F23 /* GtkTree.m */; };
+		DF32487424CF5FBE003E4F23 /* GtkWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = DF32487324CF5FBE003E4F23 /* GtkWindow.m */; };
 		DF496AEC211E76020059EE2C /* Main.c in Sources */ = {isa = PBXBuildFile; fileRef = DF496AEB211E76020059EE2C /* Main.c */; };
 		DFE300C5211E5B89000E188E /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE300C4211E5B89000E188E /* Main.swift */; };
 		DFE300CD211E5BFC000E188E /* PluginLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE300CC211E5BFC000E188E /* PluginLoad.m */; };
@@ -26,6 +31,17 @@
 
 /* Begin PBXFileReference section */
 		DF05113E212621A000B993BA /* PluginLoad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PluginLoad.h; sourceTree = "<group>"; };
+		DF32486324CF5874003E4F23 /* Callback.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Callback.m; sourceTree = "<group>"; };
+		DF32486524CF58D2003E4F23 /* Callback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Callback.h; sourceTree = "<group>"; };
+		DF32486824CF59CE003E4F23 /* Log.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Log.m; sourceTree = "<group>"; };
+		DF32486A24CF59E0003E4F23 /* Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Log.h; sourceTree = "<group>"; };
+		DF32486B24CF5C33003E4F23 /* Menu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Menu.m; sourceTree = "<group>"; };
+		DF32486D24CF5D83003E4F23 /* Menu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Menu.h; sourceTree = "<group>"; };
+		DF32486E24CF5E8F003E4F23 /* GtkTree.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GtkTree.m; sourceTree = "<group>"; };
+		DF32487024CF5EA0003E4F23 /* GtkTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GtkTree.h; sourceTree = "<group>"; };
+		DF32487224CF5F87003E4F23 /* GtkWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GtkWindow.h; sourceTree = "<group>"; };
+		DF32487324CF5FBE003E4F23 /* GtkWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GtkWindow.m; sourceTree = "<group>"; };
+		DF32487624CF6068003E4F23 /* PidginImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PidginImage.h; sourceTree = "<group>"; };
 		DF496AEA211E76020059EE2C /* Main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Main.h; sourceTree = "<group>"; };
 		DF496AEB211E76020059EE2C /* Main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Main.c; sourceTree = "<group>"; };
 		DFD69E6F2126633300532B79 /* sendbutton.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = sendbutton.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/sendbutton.so; sourceTree = "<group>"; };
@@ -66,6 +82,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DF32487124CF5F27003E4F23 /* Gtk */ = {
+			isa = PBXGroup;
+			children = (
+				DF32486E24CF5E8F003E4F23 /* GtkTree.m */,
+				DF32487024CF5EA0003E4F23 /* GtkTree.h */,
+				DF32487224CF5F87003E4F23 /* GtkWindow.h */,
+				DF32487324CF5FBE003E4F23 /* GtkWindow.m */,
+			);
+			path = Gtk;
+			sourceTree = "<group>";
+		};
+		DF32487524CF6054003E4F23 /* Pidgin */ = {
+			isa = PBXGroup;
+			children = (
+				DF32487624CF6068003E4F23 /* PidginImage.h */,
+			);
+			path = Pidgin;
+			sourceTree = "<group>";
+		};
 		DFD69E6E2126633300532B79 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,11 +150,19 @@
 		DFE300C3211E5B89000E188E /* PidginMacOSItegration */ = {
 			isa = PBXGroup;
 			children = (
+				DF32487524CF6054003E4F23 /* Pidgin */,
+				DF32487124CF5F27003E4F23 /* Gtk */,
 				DFE300CC211E5BFC000E188E /* PluginLoad.m */,
 				DF05113E212621A000B993BA /* PluginLoad.h */,
 				DFE300C4211E5B89000E188E /* Main.swift */,
 				DF496AEA211E76020059EE2C /* Main.h */,
 				DF496AEB211E76020059EE2C /* Main.c */,
+				DF32486324CF5874003E4F23 /* Callback.m */,
+				DF32486524CF58D2003E4F23 /* Callback.h */,
+				DF32486824CF59CE003E4F23 /* Log.m */,
+				DF32486A24CF59E0003E4F23 /* Log.h */,
+				DF32486B24CF5C33003E4F23 /* Menu.m */,
+				DF32486D24CF5D83003E4F23 /* Menu.h */,
 			);
 			path = PidginMacOSItegration;
 			sourceTree = "<group>";
@@ -140,7 +183,7 @@
 			dependencies = (
 			);
 			name = PidginMacOSIntegration;
-			productName = "PidginMacOSIntegration";
+			productName = PidginMacOSIntegration;
 			productReference = DFE300C1211E5B89000E188E /* PidginMacOSIntegration */;
 			productType = "com.apple.product-type.tool";
 		};
@@ -182,8 +225,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF32486924CF59CE003E4F23 /* Log.m in Sources */,
 				DFE300C5211E5B89000E188E /* Main.swift in Sources */,
+				DF32486C24CF5C33003E4F23 /* Menu.m in Sources */,
 				DFE300CD211E5BFC000E188E /* PluginLoad.m in Sources */,
+				DF32487424CF5FBE003E4F23 /* GtkWindow.m in Sources */,
+				DF32486424CF5874003E4F23 /* Callback.m in Sources */,
+				DF32486F24CF5E8F003E4F23 /* GtkTree.m in Sources */,
 				DF496AEC211E76020059EE2C /* Main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

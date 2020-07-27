@@ -26,3 +26,9 @@
 
 // Bridge fileś
 #import "PluginLoad.h"
+#import "Callback.h"
+#import "Log.h"
+#import "Menu.h"
+#import "GtkTree.h"
+#import "GtkWindow.h"
+#import "PidginImage.h"
