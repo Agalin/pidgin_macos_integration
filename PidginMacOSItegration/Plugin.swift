@@ -221,16 +221,16 @@ extension String {
             appReady = true
         }
     }
-    
+     
     func connectMessageCallbacks() {
         for c in Plugin.callbacks {
-            register_callback_with_data(instance!, {account, sender, message, conv, flags, data in
+            registerCallbackFor( instance!, onSignal: c, with: selfPtr!) {account, sender, message, conv, flags, data in
                 debug("Message callback")
                 if let selfRef : Plugin = tryCast(data) {
                     return selfRef.handleReceivedMessage(account: account, sender: sender, message: message, conv: conv, flags: flags)
                 }
                 return 0
-            }, c, selfPtr!)
+            }
         }
     }
     
@@ -284,13 +284,13 @@ extension String {
                 syncMenuBar(blistMenu, visible: true)
             }
         }
-        register_buddy_list_created_callback(instance, {blist, data in
+        registerBuddyListCreatedCallbackFor(instance,  onSignal: "gtkblist-created", with: selfPtr!) {blist, data in
             debug("Buddy list created callback")
             if let selfRef : Plugin = tryCast(data) {
                 return selfRef.handleBuddyListCreated(list: blist)
             }
             return 0
-        }, "gtkblist-created", selfPtr!)
+        }
     }
     
     func setConversationMenuForEachWindow(visible: Bool) {
@@ -304,20 +304,22 @@ extension String {
     
     func setConversationMenu() {
         setConversationMenuForEachWindow(visible: true)
-        register_conversation_created_callback(instance, {conversation, data in
+        registerConversationCreatedCallbackFor(instance, onSignal: "conversation-created", with: selfPtr!) {conversation, data in
             debug("Conversation created callback")
+            log_all("macos", "Callback!");
             if let selfRef : Plugin = tryCast(data) {
                 return selfRef.handleConversationCreated(conversation: conversation)
             }
             return 0
-        }, "conversation-created", selfPtr!)
-        register_conversation_created_callback(instance, {conversation, data in
+        }
+        registerConversationCreatedCallbackFor(instance, onSignal: "deleting-conversation", with: selfPtr!) {conversation, data in
             debug("Conversation deleted callback")
+            log_all("macos", "Callback!");
             if let selfRef : Plugin = tryCast(data) {
                 return selfRef.handleConversationDestroyed(conversation: conversation)
             }
             return 0
-        }, "deleting-conversation", selfPtr!)
+        }
     }
     
     func unsetMenu() {
@@ -338,14 +340,14 @@ extension String {
     
     func registerRedrawCallbacks(conversationWindow: UnsafeMutablePointer<PidginWindow>?) {
         let window = conversationWindow?.pointee.window
-        register_configuration_event_callback(window, { window, event, data in
+        registerConfigurationEventCallbackFor(window) { window, event, data in
             debug("Redraw")
             gtk_widget_queue_draw(window)
             return FALSE
-        })
+        }
         let callbacks = ["switch_page", "page-added", "page-removed"]
         for cb in callbacks {
-            register_switch_page_callback(conversationWindow?.pointee.notebook, cb, window) { (notebook, page, page_index, window) -> gboolean in
+            registerSwitchPageCallbackFor(conversationWindow?.pointee.notebook, in: window, onSignal: cb ) { (notebook, page, page_index, window) -> gboolean in
                 debug("Redraw")
                 Plugin.forceRedraw(widget: window)
                 return FALSE
