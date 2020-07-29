@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		DF0215C924D1F2A100B1437C /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0215C824D1F2A100B1437C /* Menu.swift */; };
 		DF32486924CF59CE003E4F23 /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = DF32486824CF59CE003E4F23 /* Log.m */; };
-		DF32486F24CF5E8F003E4F23 /* GtkTree.m in Sources */ = {isa = PBXBuildFile; fileRef = DF32486E24CF5E8F003E4F23 /* GtkTree.m */; };
-		DF32487424CF5FBE003E4F23 /* GtkWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = DF32487324CF5FBE003E4F23 /* GtkWindow.m */; };
 		DF32487824CF6288003E4F23 /* PidginConversation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32487724CF6288003E4F23 /* PidginConversation.swift */; };
 		DF32487B24CF6394003E4F23 /* GlibEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32487A24CF6394003E4F23 /* GlibEnum.swift */; };
 		DF32487E24CF63EC003E4F23 /* PurpleMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF32487D24CF63EC003E4F23 /* PurpleMessage.swift */; };
@@ -41,10 +39,6 @@
 		DF05113E212621A000B993BA /* PluginLoad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PluginLoad.h; sourceTree = "<group>"; };
 		DF32486824CF59CE003E4F23 /* Log.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Log.m; sourceTree = "<group>"; };
 		DF32486A24CF59E0003E4F23 /* Log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Log.h; sourceTree = "<group>"; };
-		DF32486E24CF5E8F003E4F23 /* GtkTree.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GtkTree.m; sourceTree = "<group>"; };
-		DF32487024CF5EA0003E4F23 /* GtkTree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GtkTree.h; sourceTree = "<group>"; };
-		DF32487224CF5F87003E4F23 /* GtkWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GtkWindow.h; sourceTree = "<group>"; };
-		DF32487324CF5FBE003E4F23 /* GtkWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GtkWindow.m; sourceTree = "<group>"; };
 		DF32487624CF6068003E4F23 /* PidginImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PidginImage.h; sourceTree = "<group>"; };
 		DF32487724CF6288003E4F23 /* PidginConversation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PidginConversation.swift; sourceTree = "<group>"; };
 		DF32487A24CF6394003E4F23 /* GlibEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlibEnum.swift; sourceTree = "<group>"; };
@@ -97,10 +91,6 @@
 		DF32487124CF5F27003E4F23 /* Gtk */ = {
 			isa = PBXGroup;
 			children = (
-				DF32486E24CF5E8F003E4F23 /* GtkTree.m */,
-				DF32487024CF5EA0003E4F23 /* GtkTree.h */,
-				DF32487224CF5F87003E4F23 /* GtkWindow.h */,
-				DF32487324CF5FBE003E4F23 /* GtkWindow.m */,
 			);
 			path = Gtk;
 			sourceTree = "<group>";
@@ -269,8 +259,6 @@
 				DF32488424CF659C003E4F23 /* GlibGList.swift in Sources */,
 				DF0215C924D1F2A100B1437C /* Menu.swift in Sources */,
 				DF32488024CF649C003E4F23 /* ConfigWindow.swift in Sources */,
-				DF32487424CF5FBE003E4F23 /* GtkWindow.m in Sources */,
-				DF32486F24CF5E8F003E4F23 /* GtkTree.m in Sources */,
 				DF496AEC211E76020059EE2C /* Main.c in Sources */,
 				DF32487824CF6288003E4F23 /* PidginConversation.swift in Sources */,
 			);
