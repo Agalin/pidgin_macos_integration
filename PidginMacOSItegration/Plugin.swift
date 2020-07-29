@@ -236,7 +236,7 @@ extension String {
     
     func syncMenuBar(_ menu: UnsafeMutablePointer<GtkWidget>?, visible: Bool) {
         if(visible) {
-            set_menu(menu)
+            setMenu(menu)
             setSharedMenuItems()
             gtk_widget_hide(menu)
             setApplicationReady()
