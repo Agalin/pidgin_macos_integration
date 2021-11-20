@@ -6,20 +6,6 @@
 	objectVersion = 51;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		9DFC538F27488049005F0927 /* GetDependencies */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 9DFC539027488049005F0927 /* Build configuration list for PBXAggregateTarget "GetDependencies" */;
-			buildPhases = (
-				9DFC539327488061005F0927 /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = GetDependencies;
-			productName = GetDependencies;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		DF0215C924D1F2A100B1437C /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0215C824D1F2A100B1437C /* Menu.swift */; };
 		DF32486924CF59CE003E4F23 /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = DF32486824CF59CE003E4F23 /* Log.m */; };
@@ -35,16 +21,6 @@
 		DFE300C5211E5B89000E188E /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE300C4211E5B89000E188E /* Plugin.swift */; };
 		DFE300CD211E5BFC000E188E /* PluginLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE300CC211E5BFC000E188E /* PluginLoad.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		9DFC539427488078005F0927 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DFE300B9211E5B89000E188E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9DFC538F27488049005F0927;
-			remoteInfo = GetDependencies;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		DFE300BF211E5B89000E188E /* CopyFiles */ = {
@@ -188,7 +164,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				9DFC539527488078005F0927 /* PBXTargetDependency */,
 			);
 			name = PidginMacOSIntegration;
 			productName = PidginMacOSIntegration;
@@ -205,9 +180,6 @@
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = Agalin;
 				TargetAttributes = {
-					9DFC538F27488049005F0927 = {
-						CreatedOnToolsVersion = 13.1;
-					};
 					DFE300C0211E5B89000E188E = {
 						CreatedOnToolsVersion = 10.0;
 						LastSwiftMigration = 1000;
@@ -227,31 +199,9 @@
 			projectRoot = "";
 			targets = (
 				DFE300C0211E5B89000E188E /* PidginMacOSIntegration */,
-				9DFC538F27488049005F0927 /* GetDependencies */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		9DFC539327488061005F0927 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Dependencies.xcconfig",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "PKG_CONFIG=\"/opt/homebrew/bin/pkg-config\"\n\nPACKAGES=\"pidgin gtk-mac-integration-gtk2\"\nPIDGIN_PATH=\"$($PKG_CONFIG pidgin --variable=prefix)/bin/pidgin\"\nOTHER_CFLAGS=\"$($PKG_CONFIG $PACKAGES --cflags-only-other)\"\nOTHER_LDFLAGS=\"$($PKG_CONFIG $PACKAGES --libs-only-l) -bundle_loader ${PIDGIN_PATH}\"\nHEADER_SEARCH_PATHS=\"$($PKG_CONFIG $PACKAGES --cflags-only-I | sed 's/^-I//g;s/ -I/ /g')\"\nLIBRARY_SEARCH_PATHS=\"$($PKG_CONFIG $PACKAGES --libs-only-L | sed 's/^-L//g;s/ -L/ /g')\"\n\necho -e \"OTHER_CFLAGS = \\$(inherited) ${OTHER_CFLAGS}\\nOTHER_LDFLAGS = \\$(inherited) ${OTHER_LDFLAGS}\\nHEADER_SEARCH_PATHS = \\$(inherited) ${HEADER_SEARCH_PATHS}\\nLIBRARY_SEARCH_PATHS = \\$(inherited) ${LIBRARY_SEARCH_PATHS}\" > Dependencies.xcconfig\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DFE300BD211E5B89000E188E /* Sources */ = {
@@ -276,34 +226,9 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		9DFC539527488078005F0927 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9DFC538F27488049005F0927 /* GetDependencies */;
-			targetProxy = 9DFC539427488078005F0927 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		9DFC539127488049005F0927 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		9DFC539227488049005F0927 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		DFE300C6211E5B89000E188E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9DFC539927488134005F0927 /* Dependencies.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -365,7 +290,6 @@
 		};
 		DFE300C7211E5B89000E188E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9DFC539927488134005F0927 /* Dependencies.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -420,6 +344,7 @@
 		};
 		DFE300C9211E5B89000E188E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DFC539927488134005F0927 /* Dependencies.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -452,6 +377,7 @@
 		};
 		DFE300CA211E5B89000E188E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DFC539927488134005F0927 /* Dependencies.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
@@ -485,15 +411,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9DFC539027488049005F0927 /* Build configuration list for PBXAggregateTarget "GetDependencies" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9DFC539127488049005F0927 /* Debug */,
-				9DFC539227488049005F0927 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		DFE300BC211E5B89000E188E /* Build configuration list for PBXProject "PidginMacOSIntegration" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
