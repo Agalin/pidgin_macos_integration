@@ -28,6 +28,4 @@
 #import "PluginLoad.h"
 #import "Log.h"
 #import "Menu.h"
-// #import "GtkTree.h"
-// #import "GtkWindow.h"
 #import "PidginImage.h"
