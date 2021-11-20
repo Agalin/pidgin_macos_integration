@@ -9,13 +9,13 @@
 #import <gtk/gtk.h>
 
 // Pidgin
-#import <pidgin/gtkblist.h>
-#import <pidgin/gtknotify.h>
-#import <pidgin/gtkconv.h>
-#import <pidgin/gtkdialogs.h>
-#import <pidgin/gtkimhtml.h>
-#import <pidgin/gtkplugin.h>
-#import <pidgin/gtkutils.h>
+#import <gtkblist.h>
+#import <gtknotify.h>
+#import <gtkconv.h>
+#import <gtkdialogs.h>
+#import <gtkimhtml.h>
+#import <gtkplugin.h>
+#import <gtkutils.h>
 
 // Purple
 #import <notify.h>
@@ -28,6 +28,4 @@
 #import "PluginLoad.h"
 #import "Log.h"
 #import "Menu.h"
-#import "GtkTree.h"
-#import "GtkWindow.h"
 #import "PidginImage.h"
