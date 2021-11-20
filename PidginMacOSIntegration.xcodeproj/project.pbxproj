@@ -6,6 +6,20 @@
 	objectVersion = 51;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		9DFC538F27488049005F0927 /* GetDependencies */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 9DFC539027488049005F0927 /* Build configuration list for PBXAggregateTarget "GetDependencies" */;
+			buildPhases = (
+				9DFC539327488061005F0927 /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = GetDependencies;
+			productName = GetDependencies;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		DF0215C924D1F2A100B1437C /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF0215C824D1F2A100B1437C /* Menu.swift */; };
 		DF32486924CF59CE003E4F23 /* Log.m in Sources */ = {isa = PBXBuildFile; fileRef = DF32486824CF59CE003E4F23 /* Log.m */; };
@@ -22,6 +36,16 @@
 		DFE300CD211E5BFC000E188E /* PluginLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = DFE300CC211E5BFC000E188E /* PluginLoad.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		9DFC539427488078005F0927 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DFE300B9211E5B89000E188E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9DFC538F27488049005F0927;
+			remoteInfo = GetDependencies;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		DFE300BF211E5B89000E188E /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -35,6 +59,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9DFC539927488134005F0927 /* Dependencies.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Dependencies.xcconfig; sourceTree = "<group>"; };
 		DF0215C824D1F2A100B1437C /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		DF05113E212621A000B993BA /* PluginLoad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PluginLoad.h; sourceTree = "<group>"; };
 		DF32486824CF59CE003E4F23 /* Log.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Log.m; sourceTree = "<group>"; };
@@ -50,27 +75,6 @@
 		DF496AEA211E76020059EE2C /* Main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Main.h; sourceTree = "<group>"; };
 		DF496AEB211E76020059EE2C /* Main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Main.c; sourceTree = "<group>"; };
 		DFAB7D9824D0B24600BED1F9 /* Callback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Callback.swift; sourceTree = "<group>"; };
-		DFD69E6F2126633300532B79 /* sendbutton.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = sendbutton.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/sendbutton.so; sourceTree = "<group>"; };
-		DFD69E702126633300532B79 /* history.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = history.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/history.so; sourceTree = "<group>"; };
-		DFD69E712126633300532B79 /* relnot.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = relnot.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/relnot.so; sourceTree = "<group>"; };
-		DFD69E722126633300532B79 /* themeedit.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = themeedit.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/themeedit.so; sourceTree = "<group>"; };
-		DFD69E732126633300532B79 /* notify.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = notify.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/notify.so; sourceTree = "<group>"; };
-		DFD69E742126633300532B79 /* convcolors.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = convcolors.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/convcolors.so; sourceTree = "<group>"; };
-		DFD69E752126633300532B79 /* markerline.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = markerline.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/markerline.so; sourceTree = "<group>"; };
-		DFD69E762126633300532B79 /* gtkbuddynote.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = gtkbuddynote.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/gtkbuddynote.so; sourceTree = "<group>"; };
-		DFD69E772126633300532B79 /* timestamp_format.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = timestamp_format.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/timestamp_format.so; sourceTree = "<group>"; };
-		DFD69E782126633300532B79 /* xmppdisco.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = xmppdisco.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/xmppdisco.so; sourceTree = "<group>"; };
-		DFD69E792126633300532B79 /* iconaway.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = iconaway.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/iconaway.so; sourceTree = "<group>"; };
-		DFD69E7A2126633300532B79 /* extplacement.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = extplacement.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/extplacement.so; sourceTree = "<group>"; };
-		DFD69E7B2126633300532B79 /* spellchk.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = spellchk.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/spellchk.so; sourceTree = "<group>"; };
-		DFD69E7C2126633300532B79 /* ticker.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = ticker.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/ticker.so; sourceTree = "<group>"; };
-		DFD69E7D2126633300532B79 /* pidginrc.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = pidginrc.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/pidginrc.so; sourceTree = "<group>"; };
-		DFD69E7E2126633300532B79 /* timestamp.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = timestamp.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/timestamp.so; sourceTree = "<group>"; };
-		DFD69E7F2126633300532B79 /* transparency.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = transparency.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/transparency.so; sourceTree = "<group>"; };
-		DFD69E802126633300532B79 /* pidgin-otr.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = "pidgin-otr.so"; path = "../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/pidgin-otr.so"; sourceTree = "<group>"; };
-		DFD69E812126633300532B79 /* xmppconsole.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.bundle"; name = xmppconsole.so; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib/pidgin/xmppconsole.so; sourceTree = "<group>"; };
-		DFD69E95212663A100532B79 /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = lib; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/lib; sourceTree = "<group>"; };
-		DFD69E972126699A00532B79 /* pidgin */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; name = pidgin; path = ../../../../../usr/local/Cellar/pidgin/2.13.0_2/bin/pidgin; sourceTree = "<group>"; };
 		DFE300C1211E5B89000E188E /* PidginMacOSIntegration */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PidginMacOSIntegration; sourceTree = BUILT_PRODUCTS_DIR; };
 		DFE300C4211E5B89000E188E /* Plugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plugin.swift; sourceTree = "<group>"; };
 		DFE300CB211E5BFC000E188E /* PidginMacOSIntegration-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PidginMacOSIntegration-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -124,27 +128,6 @@
 		DFD69E6E2126633300532B79 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DFD69E972126699A00532B79 /* pidgin */,
-				DFD69E95212663A100532B79 /* lib */,
-				DFD69E742126633300532B79 /* convcolors.so */,
-				DFD69E7A2126633300532B79 /* extplacement.so */,
-				DFD69E762126633300532B79 /* gtkbuddynote.so */,
-				DFD69E702126633300532B79 /* history.so */,
-				DFD69E792126633300532B79 /* iconaway.so */,
-				DFD69E752126633300532B79 /* markerline.so */,
-				DFD69E732126633300532B79 /* notify.so */,
-				DFD69E802126633300532B79 /* pidgin-otr.so */,
-				DFD69E7D2126633300532B79 /* pidginrc.so */,
-				DFD69E712126633300532B79 /* relnot.so */,
-				DFD69E6F2126633300532B79 /* sendbutton.so */,
-				DFD69E7B2126633300532B79 /* spellchk.so */,
-				DFD69E722126633300532B79 /* themeedit.so */,
-				DFD69E7C2126633300532B79 /* ticker.so */,
-				DFD69E772126633300532B79 /* timestamp_format.so */,
-				DFD69E7E2126633300532B79 /* timestamp.so */,
-				DFD69E7F2126633300532B79 /* transparency.so */,
-				DFD69E812126633300532B79 /* xmppconsole.so */,
-				DFD69E782126633300532B79 /* xmppdisco.so */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -152,6 +135,7 @@
 		DFE300B8211E5B89000E188E = {
 			isa = PBXGroup;
 			children = (
+				9DFC539927488134005F0927 /* Dependencies.xcconfig */,
 				DFE300C3211E5B89000E188E /* PidginMacOSItegration */,
 				DFE300C2211E5B89000E188E /* Products */,
 				DFE300CB211E5BFC000E188E /* PidginMacOSIntegration-Bridging-Header.h */,
@@ -204,6 +188,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9DFC539527488078005F0927 /* PBXTargetDependency */,
 			);
 			name = PidginMacOSIntegration;
 			productName = PidginMacOSIntegration;
@@ -220,6 +205,9 @@
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = Agalin;
 				TargetAttributes = {
+					9DFC538F27488049005F0927 = {
+						CreatedOnToolsVersion = 13.1;
+					};
 					DFE300C0211E5B89000E188E = {
 						CreatedOnToolsVersion = 10.0;
 						LastSwiftMigration = 1000;
@@ -239,9 +227,31 @@
 			projectRoot = "";
 			targets = (
 				DFE300C0211E5B89000E188E /* PidginMacOSIntegration */,
+				9DFC538F27488049005F0927 /* GetDependencies */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9DFC539327488061005F0927 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Dependencies.xcconfig",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "PKG_CONFIG=\"/opt/homebrew/bin/pkg-config\"\n\nPACKAGES=\"pidgin gtk-mac-integration-gtk2\"\nPIDGIN_PATH=\"$($PKG_CONFIG pidgin --variable=prefix)/bin/pidgin\"\nOTHER_CFLAGS=\"$($PKG_CONFIG $PACKAGES --cflags-only-other)\"\nOTHER_LDFLAGS=\"$($PKG_CONFIG $PACKAGES --libs-only-l) -bundle_loader ${PIDGIN_PATH}\"\nHEADER_SEARCH_PATHS=\"$($PKG_CONFIG $PACKAGES --cflags-only-I | sed 's/^-I//g;s/ -I/ /g')\"\nLIBRARY_SEARCH_PATHS=\"$($PKG_CONFIG $PACKAGES --libs-only-L | sed 's/^-L//g;s/ -L/ /g')\"\n\necho -e \"OTHER_CFLAGS = \\$(inherited) ${OTHER_CFLAGS}\\nOTHER_LDFLAGS = \\$(inherited) ${OTHER_LDFLAGS}\\nHEADER_SEARCH_PATHS = \\$(inherited) ${HEADER_SEARCH_PATHS}\\nLIBRARY_SEARCH_PATHS = \\$(inherited) ${LIBRARY_SEARCH_PATHS}\" > Dependencies.xcconfig\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DFE300BD211E5B89000E188E /* Sources */ = {
@@ -266,9 +276,34 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		9DFC539527488078005F0927 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9DFC538F27488049005F0927 /* GetDependencies */;
+			targetProxy = 9DFC539427488078005F0927 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		9DFC539127488049005F0927 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9DFC539227488049005F0927 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		DFE300C6211E5B89000E188E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DFC539927488134005F0927 /* Dependencies.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -330,6 +365,7 @@
 		};
 		DFE300C7211E5B89000E188E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9DFC539927488134005F0927 /* Dependencies.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -385,6 +421,7 @@
 		DFE300C9211E5B89000E188E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -394,73 +431,29 @@
 					"PACKAGE=\\\"pidgin\\\"",
 					"PACKAGE_NAME=\\\"pidgin\\\"",
 				);
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				LD_DYLIB_INSTALL_NAME = pidgin_macos_integration;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"/usr/local/opt/pidgin/lib/**",
-					/usr/local/opt/glib/lib/,
-					"/usr/local/opt/gtk-mac-integration/lib/",
-					"/usr/local/opt/gtk+/lib/",
-					"/usr/local/opt/cairo/lib/**",
-					"/usr/local/opt/pango/lib/**",
-					"/usr/local/opt/gdk-pixbuf/lib/**",
-					"/usr/local/opt/atk/lib/**",
-					/usr/local/opt/pidgin/bin,
-					/usr/local/opt/gettext/lib,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACH_O_TYPE = mh_bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
-				OTHER_LDFLAGS = (
-					"-lglib-2.0",
-					"-lpurple",
-					"-lgobject-2.0",
-					"-lgtkmacintegration-gtk2",
-					"-lcairo-gobject",
-					"-lgtkmacintegration-gtk2",
-					"-lgtk-quartz-2.0",
-					"-lgdk-quartz-2.0",
-					"-lpangocairo-1.0",
-					"-lpango-1.0",
-					"-latk-1.0",
-					"-lcairo",
-					"-lgdk_pixbuf-2.0",
-					"-lgio-2.0",
-					"-lgobject-2.0",
-					"-lintl",
-					"-lglib-2.0",
-					"-bundle_loader",
-					/usr/local/bin/pidgin,
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SWIFT_OBJC_BRIDGING_HEADER = "PidginMacOSIntegration-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
-				SYSTEM_HEADER_SEARCH_PATHS = (
-					"/usr/local/opt/glib/include/**",
-					"/usr/local/opt/glib/lib/glib-2.0/include/",
-					"/usr/local/opt/gtk-mac-integration/include/**",
-					"/usr/local/opt/gtk+/include/**",
-					"/usr/local/opt/gtk+/lib/gtk-2.0/include/**",
-					"/usr/local/opt/cairo/include/**",
-					"/usr/local/opt/pango/include/**",
-					"/usr/local/opt/gdk-pixbuf/include/**",
-					"/usr/local/opt/atk/include/**",
-					"/usr/local/opt/pidgin/include/**",
-					/usr/local/opt/gettext/include,
-					/usr/local/opt/pidgin/include/libpurple/,
-					"/usr/local/opt/harfbuzz/include/**",
-				);
+				SYSTEM_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		DFE300CA211E5B89000E188E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -470,73 +463,37 @@
 					"PACKAGE=\\\"pidgin\\\"",
 					"PACKAGE_NAME=\\\"pidgin\\\"",
 				);
-				HEADER_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = "$(inherited)";
 				LD_DYLIB_INSTALL_NAME = pidgin_macos_integration;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				LIBRARY_SEARCH_PATHS = (
-					"/usr/local/opt/pidgin/lib/**",
-					/usr/local/opt/glib/lib/,
-					"/usr/local/opt/gtk-mac-integration/lib/",
-					"/usr/local/opt/gtk+/lib/",
-					"/usr/local/opt/cairo/lib/**",
-					"/usr/local/opt/pango/lib/**",
-					"/usr/local/opt/gdk-pixbuf/lib/**",
-					"/usr/local/opt/atk/lib/**",
-					/usr/local/opt/pidgin/bin,
-					/usr/local/opt/gettext/lib,
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACH_O_TYPE = mh_bundle;
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"-lglib-2.0",
-					"-lpurple",
-					"-lgobject-2.0",
-					"-lgtkmacintegration-gtk2",
-					"-lcairo-gobject",
-					"-lgtkmacintegration-gtk2",
-					"-lgtk-quartz-2.0",
-					"-lgdk-quartz-2.0",
-					"-lpangocairo-1.0",
-					"-lpango-1.0",
-					"-latk-1.0",
-					"-lcairo",
-					"-lgdk_pixbuf-2.0",
-					"-lgio-2.0",
-					"-lgobject-2.0",
-					"-lintl",
-					"-lglib-2.0",
-					"-bundle_loader",
-					/usr/local/bin/pidgin,
-				);
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SWIFT_OBJC_BRIDGING_HEADER = "PidginMacOSIntegration-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				SYSTEM_HEADER_SEARCH_PATHS = (
-					"/usr/local/opt/glib/include/**",
-					"/usr/local/opt/glib/lib/glib-2.0/include/",
-					"/usr/local/opt/gtk-mac-integration/include/**",
-					"/usr/local/opt/gtk+/include/**",
-					"/usr/local/opt/gtk+/lib/gtk-2.0/include/**",
-					"/usr/local/opt/cairo/include/**",
-					"/usr/local/opt/pango/include/**",
-					"/usr/local/opt/gdk-pixbuf/include/**",
-					"/usr/local/opt/atk/include/**",
-					"/usr/local/opt/pidgin/include/**",
-					/usr/local/opt/gettext/include,
-					/usr/local/opt/pidgin/include/libpurple/,
-					"/usr/local/opt/harfbuzz/include/**",
-				);
+				SYSTEM_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9DFC539027488049005F0927 /* Build configuration list for PBXAggregateTarget "GetDependencies" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9DFC539127488049005F0927 /* Debug */,
+				9DFC539227488049005F0927 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		DFE300BC211E5B89000E188E /* Build configuration list for PBXProject "PidginMacOSIntegration" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
